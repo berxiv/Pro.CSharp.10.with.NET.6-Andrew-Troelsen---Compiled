@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Introducing Entity Framework Core</h1>
+    <p>EF Core is a tool from Microsoft that helps developers work with databases using C# code. It allows you to interact with data as objects instead of rows and columns. EF Core is built on .NET 6 and can run on multiple platforms.</p>
+
+    <h2>Key Features of EF Core</h2>
+    <ul>
+      <li><strong>Object-Relational Mapping (ORM)</strong>: Maps database tables to C# classes.</li>
+      <li><strong>LINQ Support</strong>: Use LINQ queries to interact with the database.</li>
+      <li><strong>State Tracking</strong>: Keeps track of changes to objects.</li>
+      <li><strong>Transactions</strong>: Supports database transactions.</li>
+    </ul>
+
+    <h2>Basic Components</h2>
+    <ul>
+      <li><strong>DbContext</strong>: The main class for interacting with the database.</li>
+      <li><strong>DbSet</strong>: Represents a table in the database.</li>
+      <li><strong>ChangeTracker</strong>: Tracks changes to objects.</li>
+      <li><strong>Database Providers</strong>: Connects EF Core to different databases like SQL Server, MySQL, etc.</li>
+    </ul>
+
+    <h2>Setting Up EF Core</h2>
+    <ol>
+      <li>Create a new project: Use a Console Application.</li>
+      <li>Install EF Core packages:
+        <pre><code>dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design</code></pre>
+      </li>
+      <li>Create a DbContext class:
+        <pre><code>public class ApplicationDbContext : DbContext
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
+    public DbSet<Car> Cars { get; set; }
+}</code></pre>
+      </li>
+    </ol>
+
+    <h2>Creating and Configuring Entities</h2>
+    <p>Entities are C# classes that map to database tables.</p>
+    <pre><code>public class Car
+{
+    public int Id { get; set; }
+    public string Color { get; set; }
+    public string PetName { get; set; }
+}</code></pre>
+
+    <h2>Relationships</h2>
+    <h3>One-to-Many</h3>
+    <pre><code>public class Make
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public List<Car> Cars { get; set; }
+}</code></pre>
+
+    <h3>One-to-One</h3>
+    <pre><code>public class Radio
+{
+    public int Id { get; set; }
+    public bool HasTweeters { get; set; }
+    public int CarId { get; set; }
+    public Car Car { get; set; }
+}</code></pre>
+
+    <h3>Many-to-Many</h3>
+    <pre><code>public class Driver
+{
+    public int Id { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public List<Car> Cars { get; set; }
+}</code></pre>
+
+    <h2>Using Migrations</h2>
+    <p>Migrations help keep your database schema in sync with your model.</p>
+    <pre><code>dotnet ef migrations add InitialCreate
+dotnet ef database update</code></pre>
+
+    <h2>Exercises</h2>
+    <h3>Create a Simple Model</h3>
+    <p>Create a <code>Person</code> class with properties <code>Id</code>, <code>FirstName</code>, and <code>LastName</code>. Create a <code>DbContext</code> class and add a <code>DbSet<Person></code> property. Write a method to add a new person to the database.</p>
+    <pre><code>class Person
+{
+    int Id;
+    string FirstName;
+    string LastName;
+}
+
+class ApplicationDbContext : DbContext
+{
+    DbSet<Person> People;
+}
+
+method AddPerson(string firstName, string lastName)
+{
+    create new Person object;
+    set FirstName and LastName;
+    add to People DbSet;
+    save changes;
+}</code></pre>
+
+    <h3>Query the Database</h3>
+    <p>Write a method to retrieve all people with a specific last name.</p>
+    <pre><code>method GetPeopleByLastName(string lastName)
+{
+    query People DbSet where LastName equals lastName;
+    return list of matching people;
+}</code></pre>
+
+    <h3>Update an Entity</h3>
+    <p>Write a method to update a person's first name by their ID.</p>
+    <pre><code>method UpdatePersonFirstName(int id, string newFirstName)
+{
+    find person by id in People DbSet;
+    if person exists
+    {
+        set FirstName to newFirstName;
+        save changes;
+    }
+}</code></pre>
+
+    <h3>Delete an Entity</h3>
+    <p>Write a method to delete a person by their ID.</p>
+    <pre><code>method DeletePerson(int id)
+{
+    find person by id in People DbSet;
+    if person exists
+    {
+        remove person from People DbSet;
+        save changes;
+    }
+}</code></pre>
+
+<footer class="mt-4">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+      <li class="page-item active" aria-current="page"><a class="page-link" href="#">21</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">Next</a></li>
+          </ul>
+      </nav>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+  </body>

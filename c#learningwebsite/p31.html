@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Chapter 31: Diving Into ASP.NET Core</h1>
+    
+    <h2>What's New in ASP.NET Core</h2>
+    <ul>
+      <li><strong>Razor Pages</strong>: A new way to create web applications.</li>
+      <li><strong>Environment Awareness</strong>: Apps can adapt to different environments (development, production, etc.).</li>
+      <li><strong>Minimal Templates</strong>: Simpler starting templates.</li>
+      <li><strong>Cloud-Ready Configuration</strong>: Easy to configure for cloud environments.</li>
+      <li><strong>Built-In Dependency Injection</strong>: Helps manage dependencies.</li>
+      <li><strong>Options Pattern</strong>: A way to manage settings.</li>
+      <li><strong>HTTP Client Factory</strong>: Simplifies HTTP requests.</li>
+      <li><strong>Flexible Development and Deployment</strong>: Works on different platforms.</li>
+      <li><strong>High Performance</strong>: Faster and more efficient.</li>
+      <li><strong>Integrated Logging</strong>: Better logging support.</li>
+    </ul>
+
+    <h2>Razor Pages</h2>
+    <p>Razor Pages are a new way to build web applications. Each page has two files:</p>
+    <ul>
+      <li><strong>Page File (e.g., Index.cshtml)</strong>: The view.</li>
+      <li><strong>PageModel Class (e.g., Index.cshtml.cs)</strong>: The code behind the view.</li>
+    </ul>
+
+    <h2>PageModel Class</h2>
+    <p>The PageModel class provides methods to help with web applications. Here are some common methods:</p>
+    <ul>
+      <li><strong>HttpContext</strong>: Information about the current request.</li>
+      <li><strong>Request</strong>: The HTTP request.</li>
+      <li><strong>Response</strong>: The HTTP response.</li>
+      <li><strong>RouteData</strong>: Information about the route.</li>
+      <li><strong>ModelState</strong>: Validation state of the model.</li>
+      <li><strong>Url</strong>: Helps build URLs.</li>
+      <li><strong>ViewData</strong>: Passes data to the view.</li>
+      <li><strong>TempData</strong>: Temporary data storage.</li>
+      <li><strong>Page</strong>: Returns a page result.</li>
+      <li><strong>PartialView</strong>: Returns a partial view.</li>
+      <li><strong>ViewComponent</strong>: Returns a view component.</li>
+      <li><strong>OnPageHandlerSelected</strong>: Runs when a page handler is selected.</li>
+      <li><strong>OnPageHandlerExecuting</strong>: Runs before a page handler executes.</li>
+      <li><strong>OnPageHandlerExecuted</strong>: Runs after a page handler executes.</li>
+    </ul>
+
+    <h2>Environmental Awareness</h2>
+    <p>ASP.NET Core apps can adapt to different environments using the <code>IWebHostEnvironment</code> interface. Here are some properties:</p>
+    <ul>
+      <li><strong>ApplicationName</strong>: Name of the app.</li>
+      <li><strong>ContentRootPath</strong>: Path to the content files.</li>
+      <li><strong>EnvironmentName</strong>: Name of the environment (Development, Staging, Production).</li>
+      <li><strong>WebRootPath</strong>: Path to the web content files.</li>
+    </ul>
+
+    <h2>Dependency Injection</h2>
+    <p>Dependency Injection (DI) helps manage dependencies in a flexible way. There are three lifetime options:</p>
+    <ul>
+      <li><strong>Transient</strong>: Created each time they are needed.</li>
+      <li><strong>Scoped</strong>: Created once per request.</li>
+      <li><strong>Singleton</strong>: Created once and reused.</li>
+    </ul>
+
+    <h2>HTTP Client Factory</h2>
+    <p>The HTTP Client Factory helps manage HTTP requests. There are four ways to use it:</p>
+    <ul>
+      <li><strong>Basic Usage</strong>: Simple way to create HTTP clients.</li>
+      <li><strong>Named Clients</strong>: Different configurations for different clients.</li>
+      <li><strong>Typed Clients</strong>: Encapsulate HTTP clients in classes.</li>
+      <li><strong>Generated Clients</strong>: Automatically generated clients.</li>
+    </ul>
+
+    <h2>Exercises</h2>
+
+    <h3>Exercise 1: Create a Simple Razor Page</h3>
+    <ol>
+      <li><strong>Create a new Razor Page</strong>:
+        <ul>
+          <li>Create a file named <code>Index.cshtml</code>.</li>
+          <li>Create a file named <code>Index.cshtml.cs</code>.</li>
+        </ul>
+      </li>
+      <li><strong>Add content to the page</strong>:
+        <ul>
+          <li>In <code>Index.cshtml</code>, add some HTML content.</li>
+          <li>In <code>Index.cshtml.cs</code>, add a simple method to handle a GET request.</li>
+        </ul>
+      </li>
+    </ol>
+    <pre><code>// Index.cshtml
+@page
+<h1>Hello, World!</h1>
+
+// Index.cshtml.cs
+public class IndexModel : PageModel
+{
+    public void OnGet()
+    {
+        // Handle GET request
+    }
+}
+</code></pre>
+
+    <h3>Exercise 2: Use Dependency Injection</h3>
+    <ol>
+      <li><strong>Create a service</strong>:
+        <ul>
+          <li>Create a class named <code>MyService</code>.</li>
+        </ul>
+      </li>
+      <li><strong>Register the service</strong>:
+        <ul>
+          <li>In <code>Startup.cs</code>, add the service to the DI container.</li>
+        </ul>
+      </li>
+      <li><strong>Inject the service</strong>:
+        <ul>
+          <li>In <code>Index.cshtml.cs</code>, inject the service and use it.</li>
+        </ul>
+      </li>
+    </ol>
+    <pre><code>// MyService.cs
+public class MyService
+{
+    public string GetMessage() => "Hello from MyService!";
+}
+
+// Startup.cs
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddTransient<MyService>();
+}
+
+// Index.cshtml.cs
+public class IndexModel : PageModel
+{
+    private readonly MyService _myService;
+
+    public IndexModel(MyService myService)
+    {
+        _myService = myService;
+    }
+
+    public void OnGet()
+    {
+        var message = _myService.GetMessage();
+        // Use the message
+    }
+}
+</code></pre>
+
+    <h3>Exercise 3: Configure Environment-Specific Settings</h3>
+    <ol>
+      <li><strong>Add environment settings</strong>:
+        <ul>
+          <li>Create <code>appsettings.Development.json</code> and <code>appsettings.Production.json</code>.</li>
+        </ul>
+      </li>
+      <li><strong>Read settings in the app</strong>:
+        <ul>
+          <li>Use <code>IConfiguration</code> to read settings.</li>
+        </ul>
+      </li>
+    </ol>
+    <pre><code>// appsettings.Development.json
+{
+    "Setting": "Development Value"
+}
+
+// appsettings.Production.json
+{
+    "Setting": "Production Value"
+}
+
+// Startup.cs
+public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+{
+    var setting = configuration["Setting"];
+    // Use the setting
+}
+</code></pre>
+
+<footer class="mt-4">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+      <li class="page-item active" aria-current="page"><a class="page-link" href="#">31</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">Next</a></li>
+          </ul>
+      </nav>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+  </body>

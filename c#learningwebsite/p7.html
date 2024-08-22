@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Chapter 7: Understanding Structured Exception Handling</h1>
+
+    <h2>Introduction</h2>
+    <p>In this chapter, you'll learn how to handle errors in your C# code using structured exception handling. We'll cover the keywords <code>try</code>, <code>catch</code>, <code>throw</code>, <code>finally</code>, and <code>when</code>. You'll also learn about different types of exceptions and how to create custom exceptions.</p>
+
+    <h2>Key Concepts</h2>
+    <h3>Bugs, User Errors, and Exceptions</h3>
+    <ul>
+      <li><strong>Bugs</strong>: Mistakes made by the programmer, like memory leaks.</li>
+      <li><strong>User Errors</strong>: Mistakes made by the user, like entering invalid data.</li>
+      <li><strong>Exceptions</strong>: Unexpected issues that occur during runtime, like trying to open a non-existent file.</li>
+    </ul>
+
+    <h3>.NET Exception Handling</h3>
+    <p>Before .NET, error handling was inconsistent. .NET provides a unified way to handle errors using structured exception handling.</p>
+
+    <h3>Exception Handling Keywords</h3>
+    <ul>
+      <li><strong>try</strong>: Code that might cause an exception goes here.</li>
+      <li><strong>catch</strong>: Code to handle the exception goes here.</li>
+      <li><strong>throw</strong>: Used to create an exception.</li>
+      <li><strong>finally</strong>: Code that runs whether an exception occurs or not.</li>
+      <li><strong>when</strong>: Adds a condition to a catch block.</li>
+    </ul>
+
+    <h2>Example: Handling Exceptions in a Car Class</h2>
+    <h3>Car and Radio Classes</h3>
+    <pre><code>class Radio {
+    public void TurnOn(bool on) {
+        Console.WriteLine(on ? "Jamming..." : "Quiet time...");
+    }
+}
+
+class Car {
+    public const int MaxSpeed = 100;
+    public int CurrentSpeed { get; set; } = 0;
+    public string PetName { get; set; } = "";
+    private bool _carIsDead;
+    private readonly Radio _theMusicBox = new Radio();
+
+    public Car() {}
+    public Car(string name, int speed) {
+        CurrentSpeed = speed;
+        PetName = name;
+    }
+
+    public void CrankTunes(bool state) {
+        _theMusicBox.TurnOn(state);
+    }
+
+    public void Accelerate(int delta) {
+        if (_carIsDead) {
+            Console.WriteLine($"{PetName} is out of order...");
+        } else {
+            CurrentSpeed += delta;
+            if (CurrentSpeed > MaxSpeed) {
+                Console.WriteLine($"{PetName} has overheated!");
+                CurrentSpeed = 0;
+                _carIsDead = true;
+                throw new Exception($"{PetName} has overheated!");
+            } else {
+                Console.WriteLine($"=> CurrentSpeed = {CurrentSpeed}");
+            }
+        }
+    }
+}</code></pre>
+
+    <h3>Handling Exceptions</h3>
+    <pre><code>try {
+    Car myCar = new Car("Zippy", 20);
+    myCar.CrankTunes(true);
+    for (int i = 0; i < 10; i++) {
+        myCar.Accelerate(10);
+    }
+} catch (Exception e) {
+    Console.WriteLine("*** Error! ***");
+    Console.WriteLine($"Method: {e.TargetSite}");
+    Console.WriteLine($"Message: {e.Message}");
+    Console.WriteLine($"Source: {e.Source}");
+} finally {
+    Console.WriteLine("***** Out of exception logic *****");
+}</code></pre>
+
+    <h2>Exercises</h2>
+    <h3>Exercise 1: Create a Custom Exception</h3>
+    <p><strong>Task</strong>: Create a custom exception called <code>CarIsDeadException</code> and use it in the <code>Car</code> class.</p>
+    <p><strong>Pseudocode Hint</strong>:</p>
+    <ol>
+      <li>Define a new class <code>CarIsDeadException</code> that inherits from <code>Exception</code>.</li>
+      <li>Add properties for <code>ErrorTimeStamp</code> and <code>CauseOfError</code>.</li>
+      <li>Modify the <code>Accelerate</code> method to throw <code>CarIsDeadException</code> instead of <code>Exception</code>.</li>
+    </ol>
+    <pre><code>class CarIsDeadException : Exception {
+    public DateTime ErrorTimeStamp { get; set; }
+    public string CauseOfError { get; set; }
+
+    public CarIsDeadException(string message, string cause, DateTime time) : base(message) {
+        CauseOfError = cause;
+        ErrorTimeStamp = time;
+    }
+}
+
+public void Accelerate(int delta) {
+    if (_carIsDead) {
+        throw new CarIsDeadException($"{PetName} has overheated!", "You have a lead foot", DateTime.Now);
+    }
+    // Rest of the method...
+}</code></pre>
+
+    <h3>Exercise 2: Handle Multiple Exceptions</h3>
+    <p><strong>Task</strong>: Update the <code>Car</code> class to throw an <code>ArgumentOutOfRangeException</code> if <code>delta</code> is less than 0 and handle it in the <code>try</code> block.</p>
+    <p><strong>Pseudocode Hint</strong>:</p>
+    <ol>
+      <li>Add a check in <code>Accelerate</code> for <code>delta < 0</code>.</li>
+      <li>Throw <code>ArgumentOutOfRangeException</code> if the check fails.</li>
+      <li>Add a <code>catch</code> block for <code>ArgumentOutOfRangeException</code>.</li>
+    </ol>
+    <pre><code>public void Accelerate(int delta) {
+    if (delta < 0) {
+        throw new ArgumentOutOfRangeException(nameof(delta), "Speed must be greater than zero");
+    }
+    // Rest of the method...
+}
+
+try {
+    myCar.Accelerate(-10);
+} catch (ArgumentOutOfRangeException e) {
+    Console.WriteLine(e.Message);
+} catch (CarIsDeadException e) {
+    Console.WriteLine(e.Message);
+} catch (Exception e) {
+    Console.WriteLine(e.Message);
+}</code></pre>
+
+<footer class="mt-4">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+      <li class="page-item" aria-current="page"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+      <li class="page-item active"><a class="page-link" href="#">7</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">Next</a></li>
+          </ul>
+      </nav>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+  </body>

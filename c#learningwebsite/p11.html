@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Advanced C# Language Features</h1>
+
+    <h2>Indexer Methods</h2>
+    <p><strong>What are Indexer Methods?</strong></p>
+    <ul>
+      <li>Indexer methods let you access elements in a custom class like an array.</li>
+      <li>Example: <code>myCollection[0]</code> to get the first item.</li>
+    </ul>
+    <p><strong>How to Use Indexer Methods</strong></p>
+    <pre><code>public class PersonCollection {
+    private List<Person> people = new List<Person>();
+    public Person this[int index] {
+        get { return people[index]; }
+        set { people[index] = value; }
+    }
+}</code></pre>
+    <p><strong>Exercise: Create a Custom Collection</strong></p>
+    <ol>
+      <li>Create a class <code>BookCollection</code>.</li>
+      <li>Add a list of <code>Book</code> objects.</li>
+      <li>Implement an indexer to get and set books by index.</li>
+    </ol>
+    <p><strong>Pseudocode Hint:</strong></p>
+    <pre><code>class BookCollection:
+    list books
+    method get(index):
+        return books[index]
+    method set(index, value):
+        books[index] = value</code></pre>
+
+    <h2>Operator Overloading</h2>
+    <p><strong>What is Operator Overloading?</strong></p>
+    <ul>
+      <li>Allows custom classes to use operators like <code>+</code>, <code>-</code>, etc.</li>
+      <li>Example: Adding two <code>Point</code> objects.</li>
+    </ul>
+    <p><strong>How to Overload Operators</strong></p>
+    <pre><code>public static Point operator +(Point p1, Point p2) {
+    return new Point(p1.X + p2.X, p1.Y + p2.Y);
+}</code></pre>
+    <p><strong>Exercise: Overload the <code>+</code> Operator for a <code>Vector</code> Class</strong></p>
+    <ol>
+      <li>Create a <code>Vector</code> class with <code>X</code> and <code>Y</code> properties.</li>
+      <li>Overload the <code>+</code> operator to add two vectors.</li>
+    </ol>
+    <p><strong>Pseudocode Hint:</strong></p>
+    <pre><code>class Vector:
+    int X
+    int Y
+    method operator +(Vector v1, Vector v2):
+        return new Vector(v1.X + v2.X, v1.Y + v2.Y)</code></pre>
+
+    <h2>Extension Methods</h2>
+    <p><strong>What are Extension Methods?</strong></p>
+    <ul>
+      <li>Add new methods to existing types without modifying them.</li>
+      <li>Example: Adding a <code>Print</code> method to <code>List<int></code>.</li>
+    </ul>
+    <p><strong>How to Create Extension Methods</strong></p>
+    <pre><code>public static class MyExtensions {
+    public static void Print(this List<int> list) {
+        foreach (int i in list) {
+            Console.WriteLine(i);
+        }
+    }
+}</code></pre>
+    <p><strong>Exercise: Create an Extension Method for Strings</strong></p>
+    <ol>
+      <li>Create a static class <code>StringExtensions</code>.</li>
+      <li>Add a method <code>IsPalindrome</code> to check if a string is a palindrome.</li>
+    </ol>
+    <p><strong>Pseudocode Hint:</strong></p>
+    <pre><code>static class StringExtensions:
+    method IsPalindrome(this string s):
+        return s == reverse(s)</code></pre>
+
+    <h2>Anonymous Types</h2>
+    <p><strong>What are Anonymous Types?</strong></p>
+    <ul>
+      <li>Quick way to create a class with properties without defining it.</li>
+      <li>Example: <code>var car = new { Make = "Toyota", Model = "Camry" };</code></li>
+    </ul>
+    <p><strong>How to Use Anonymous Types</strong></p>
+    <pre><code>var person = new { FirstName = "John", LastName = "Doe" };</code></pre>
+    <p><strong>Exercise: Create an Anonymous Type for a Product</strong></p>
+    <ol>
+      <li>Create an anonymous type for a product with <code>Name</code>, <code>Price</code>, and <code>Category</code>.</li>
+    </ol>
+    <p><strong>Pseudocode Hint:</strong></p>
+    <pre><code>var product = new { Name = "Laptop", Price = 999.99, Category = "Electronics" }</code></pre>
+
+    <h2>Unsafe Code and Pointers</h2>
+    <p><strong>What is Unsafe Code?</strong></p>
+    <ul>
+      <li>Allows direct memory manipulation using pointers.</li>
+      <li>Example: <code>int* p = &myInt;</code></li>
+    </ul>
+    <p><strong>How to Use Unsafe Code</strong></p>
+    <pre><code>unsafe {
+    int* p = &myInt;
+    *p = 10;
+}</code></pre>
+    <p><strong>Exercise: Swap Two Integers Using Pointers</strong></p>
+    <ol>
+      <li>Create an unsafe method to swap two integers using pointers.</li>
+    </ol>
+    <p><strong>Pseudocode Hint:</strong></p>
+    <pre><code>unsafe method Swap(int* a, int* b):
+    int temp = *a
+    *a = *b
+    *b = temp</code></pre>
+
+    <footer class="mt-4">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+          <li class="page-item active" aria-current="page"><a class="page-link" href="#">11</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">Next</a></li>
+              </ul>
+          </nav>
+        </footer>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+      </body>

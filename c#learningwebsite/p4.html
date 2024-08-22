@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Chapter 4: Core C# Programming Constructs, Part 2</h1>
+
+    <h2>Understanding C# Arrays</h2>
+    <p><strong>Arrays</strong> are collections of data items of the same type, accessed using a numerical index.</p>
+
+    <h3>Declaring and Using Arrays</h3>
+    <pre><code>int[] myInts = new int[3]; // Array of 3 integers
+string[] booksOnDotNet = new string[100]; // Array of 100 strings
+</code></pre>
+
+    <h3>Filling and Accessing Arrays</h3>
+    <pre><code>myInts[0] = 100;
+myInts[1] = 200;
+myInts[2] = 300;
+
+foreach (int i in myInts) {
+    Console.WriteLine(i);
+}
+</code></pre>
+
+    <h3>Array Initialization Syntax</h3>
+    <pre><code>string[] stringArray = new string[] { "one", "two", "three" };
+bool[] boolArray = { false, false, true };
+int[] intArray = new int[4] { 20, 22, 23, 0 };
+</code></pre>
+
+    <h2>Multidimensional Arrays</h2>
+    <p><strong>Rectangular Arrays</strong>: Arrays with rows of the same length.</p>
+    <pre><code>int[,] myMatrix = new int[3, 4];
+</code></pre>
+
+    <p><strong>Jagged Arrays</strong>: Arrays of arrays, where each inner array can have different lengths.</p>
+    <pre><code>int[][] myJagArray = new int[5][];
+for (int i = 0; i < myJagArray.Length; i++) {
+    myJagArray[i] = new int[i + 7];
+}
+</code></pre>
+
+    <h2>Using Arrays as Arguments or Return Values</h2>
+    <pre><code>static void PrintArray(int[] myInts) {
+    foreach (int i in myInts) {
+        Console.WriteLine(i);
+    }
+}
+
+static string[] GetStringArray() {
+    return new string[] { "Hello", "from", "GetStringArray" };
+}
+</code></pre>
+
+    <h2>Exercises</h2>
+    <h3>Create and Print an Array</h3>
+    <p><strong>Task</strong>: Create an array of 5 integers, fill it with values, and print each value.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>Create an array of 5 integers
+Fill the array with values
+Loop through the array and print each value
+</code></pre>
+
+    <h3>Sum of Array Elements</h3>
+    <p><strong>Task</strong>: Write a method that takes an array of integers and returns the sum of its elements.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>Method to take an array of integers
+Initialize sum to 0
+Loop through the array
+Add each element to sum
+Return sum
+</code></pre>
+
+    <h2>Understanding Methods</h2>
+    <p><strong>Methods</strong> are blocks of code that perform a specific task.</p>
+
+    <h3>Basic Method Structure</h3>
+    <pre><code>static int Add(int x, int y) {
+    return x + y;
+}
+</code></pre>
+
+    <h3>Method Overloading</h3>
+    <pre><code>public static int Add(int x, int y) {
+    return x + y;
+}
+
+public static double Add(double x, double y) {
+    return x + y;
+}
+</code></pre>
+
+    <h2>Exercises</h2>
+    <h3>Create a Simple Method</h3>
+    <p><strong>Task</strong>: Write a method that takes two integers and returns their product.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>Method to take two integers
+Multiply the integers
+Return the result
+</code></pre>
+
+    <h3>Overload a Method</h3>
+    <p><strong>Task</strong>: Overload the method to also handle two double parameters.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>Method to take two doubles
+Multiply the doubles
+Return the result
+</code></pre>
+
+    <h2>Understanding Enumerations</h2>
+    <p><strong>Enumerations (enums)</strong> are sets of named constants.</p>
+
+    <h3>Declaring an Enum</h3>
+    <pre><code>enum EmpTypeEnum {
+    Manager,
+    Grunt,
+    Contractor,
+    VicePresident
+}
+</code></pre>
+
+    <h2>Exercises</h2>
+    <h3>Create and Use an Enum</h3>
+    <p><strong>Task</strong>: Create an enum for days of the week and write a method that prints a message based on the day.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>Create an enum for days of the week
+Method to take a day as parameter
+Print a message based on the day
+</code></pre>
+
+    <h2>Understanding Structures</h2>
+    <p><strong>Structures (structs)</strong> are user-defined types that can contain multiple data fields.</p>
+
+    <h3>Declaring a Struct</h3>
+    <pre><code>struct Point {
+    public int X;
+    public int Y;
+
+    public void Display() {
+        Console.WriteLine($"X = {X}, Y = {Y}");
+    }
+}
+</code></pre>
+
+    <h2>Exercises</h2>
+    <h3>Create and Use a Struct</h3>
+    <p><strong>Task</strong>: Create a struct for a 2D point and write a method to display its coordinates.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>Create a struct for a 2D point
+Method to display the coordinates
+</code></pre>
+
+    <h2>Nullable Types</h2>
+    <p><strong>Nullable types</strong> can represent all the values of their underlying type plus an additional null value.</p>
+
+    <h3>Declaring Nullable Types</h3>
+    <pre><code>int? nullableInt = 10;
+bool? nullableBool = null;
+</code></pre>
+
+    <h2>Exercises</h2>
+    <h3>Use Nullable Types</h3>
+    <p><strong>Task</strong>: Write a method that takes a nullable integer and returns a message indicating if it has a value or is null.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>Method to take a nullable integer
+If the integer has a value, return a message with the value
+If the integer is null, return a message indicating it is null
+</code></pre>
+
+    <h2>Tuples</h2>
+    <p><strong>Tuples</strong> are lightweight data structures that contain multiple fields.</p>
+
+    <h3>Creating and Using Tuples</h3>
+    <pre><code>(string, int, string) values = ("a", 5, "c");
+Console.WriteLine(values.Item1); // "a"
+</code></pre>
+
+    <h2>Exercises</h2>
+    <h3>Create and Use a Tuple</h3>
+    <p><strong>Task</strong>: Write a method that returns a tuple with three different types of values.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>Method to return a tuple with three values
+Create a tuple with three values
+Return the tuple
+</code></pre>
+
+    <footer class="mt-4">
+      <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">Previous</a>
+            </li>
+            <li class="page-item" aria-current="page"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+            <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+      <li class="page-item active"><a class="page-link" href="#">4</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">Next</a></li>
+          </ul>
+      </nav>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Chapter 8: Working with Interfaces</h1>
+    
+    <h2>What is an Interface?</h2>
+    <p><strong>Interface</strong>: A way to define a set of methods and properties that a class must implement.</p>
+    <p><strong>Purpose</strong>: To allow different classes to share the same set of methods and properties, even if they are not related.</p>
+    <pre><code>public interface IExample {
+    void DoSomething();
+    int GetNumber();
+}</code></pre>
+
+    <h2>Why Use Interfaces?</h2>
+    <p><strong>Multiple Behaviors</strong>: A class can implement multiple interfaces, allowing it to have multiple behaviors.</p>
+    <p><strong>Flexibility</strong>: Interfaces allow you to define methods that can be used by different classes in different ways.</p>
+    <pre><code>public class MyClass : IExample, IAnotherExample {
+    public void DoSomething() {
+        // Implementation
+    }
+
+    public int GetNumber() {
+        return 42;
+    }
+
+    public void AnotherMethod() {
+        // Another implementation
+    }
+}</code></pre>
+
+    <h2>Implementing Interfaces</h2>
+    <p><strong>Syntax</strong>: Use the <code>: InterfaceName</code> syntax after the class name.</p>
+    <p><strong>All or Nothing</strong>: You must implement all methods and properties defined in the interface.</p>
+    <pre><code>public class MyClass : IExample {
+    public void DoSomething() {
+        Console.WriteLine("Doing something!");
+    }
+
+    public int GetNumber() {
+        return 42;
+    }
+}</code></pre>
+
+    <h2>Default Methods in Interfaces (C# 8.0)</h2>
+    <p><strong>Default Methods</strong>: Interfaces can have methods with default implementations.</p>
+    <p><strong>Optional Override</strong>: Classes can override these methods if needed.</p>
+    <pre><code>public interface IExample {
+    void DoSomething();
+    int GetNumber() => 42; // Default implementation
+}</code></pre>
+
+    <h2>Exercises</h2>
+
+    <h3>Exercise 1: Create and Implement an Interface</h3>
+    <p><strong>Task</strong>: Create an interface <code>IMovable</code> with methods <code>Move()</code> and <code>Stop()</code>.</p>
+    <p><strong>Implement</strong>: Create a class <code>Car</code> that implements <code>IMovable</code>.</p>
+    <pre><code>interface IMovable {
+    method Move()
+    method Stop()
+}
+
+class Car implements IMovable {
+    method Move() {
+        print "Car is moving"
+    }
+
+    method Stop() {
+        print "Car has stopped"
+    }
+}</code></pre>
+
+    <h3>Exercise 2: Use Default Methods</h3>
+    <p><strong>Task</strong>: Add a default method <code>GetSpeed()</code> to <code>IMovable</code> that returns a default speed.</p>
+    <p><strong>Implement</strong>: Override <code>GetSpeed()</code> in the <code>Car</code> class to return a specific speed.</p>
+    <pre><code>interface IMovable {
+    method Move()
+    method Stop()
+    method GetSpeed() {
+        return 60 // Default speed
+    }
+}
+
+class Car implements IMovable {
+    method Move() {
+        print "Car is moving"
+    }
+
+    method Stop() {
+        print "Car has stopped"
+    }
+
+    method GetSpeed() {
+        return 100 // Car's speed
+    }
+}</code></pre>
+
+    <h3>Exercise 3: Check Interface Implementation</h3>
+    <p><strong>Task</strong>: Create a method <code>CheckMovable</code> that takes an <code>IMovable</code> object and calls its methods.</p>
+    <p><strong>Implement</strong>: Create instances of <code>Car</code> and check if they implement <code>IMovable</code>.</p>
+    <pre><code>method CheckMovable(IMovable obj) {
+    obj.Move()
+    print obj.GetSpeed()
+    obj.Stop()
+}
+
+Car myCar = new Car()
+CheckMovable(myCar)</code></pre>
+
+<footer class="mt-4">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+      <li class="page-item active" aria-current="page"><a class="page-link" href="#">8</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">Next</a></li>
+          </ul>
+      </nav>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+  </body>

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming - Page 2</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Chapter 2: Building C# Applications</h1>
+
+    <h2>Getting Started with .NET 6</h2>
+    <p>To build C# applications, you need to install the .NET 6 SDK and runtime. Here's how:</p>
+    <ol>
+      <li><strong>Go to</strong> <a href="http://www.dot.net">www.dot.net</a>.</li>
+      <li><strong>Click</strong> "Download" and then "All .NET downloads."</li>
+      <li><strong>Select</strong> ".NET 6.0 (recommended)" and download the SDK for your operating system.</li>
+    </ol>
+
+    <h2>Understanding .NET Version Numbers</h2>
+    <p><strong>Example Version</strong>: 6.0.100</p>
+    <ul>
+      <li><strong>6.0</strong>: Major version</li>
+      <li><strong>1</strong>: Feature update</li>
+      <li><strong>00</strong>: Patch version</li>
+    </ul>
+
+    <h2>Confirming Installation</h2>
+    <p>Open a command window and type these commands to check your installation:</p>
+    <ul>
+      <li><code>dotnet --version</code>: Shows the SDK version.</li>
+      <li><code>dotnet --list-runtimes</code>: Lists installed runtimes.</li>
+      <li><code>dotnet --list-sdks</code>: Lists installed SDKs.</li>
+    </ul>
+
+    <h2>Using Visual Studio 2022</h2>
+    <p>Visual Studio 2022 is an Integrated Development Environment (IDE) for building C# applications. You can download it from <a href="http://www.visualstudio.com/downloads">Visual Studio Downloads</a>.</p>
+
+    <h3>Installation Steps</h3>
+    <ol>
+      <li><strong>Select</strong> the workloads you need (e.g., .NET desktop development, ASP.NET and web development).</li>
+      <li><strong>Click</strong> "Install."</li>
+    </ol>
+
+    <h2>Creating a Simple C# Console Application</h2>
+    <ol>
+      <li><strong>Open</strong> Visual Studio.</li>
+      <li><strong>Select</strong> "Create a new project."</li>
+      <li><strong>Choose</strong> "Console App" and name it <code>SimpleCSharpConsoleApp</code>.</li>
+      <li><strong>Write</strong> the following code in <code>Program.cs</code>:</li>
+    </ol>
+    <pre><code>Console.Title = "My Rocking App";
+Console.ForegroundColor = ConsoleColor.Yellow;
+Console.BackgroundColor = ConsoleColor.Blue;
+Console.WriteLine("*************************************");
+Console.WriteLine("***** Welcome to My Rocking App *****");
+Console.WriteLine("*************************************");
+Console.BackgroundColor = ConsoleColor.Black;
+Console.ReadLine();</code></pre>
+
+    <h2>Running and Debugging</h2>
+    <ul>
+      <li><strong>Run</strong>: Press <code>Ctrl+F5</code>.</li>
+      <li><strong>Debug</strong>: Set breakpoints by clicking the leftmost gray bar in the code editor and press <code>F5</code>.</li>
+    </ul>
+
+    <h2>Exercises</h2>
+
+    <h3>Exercise 1: Install .NET 6 SDK</h3>
+    <p><strong>Objective</strong>: Install the .NET 6 SDK on your computer.</p>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Go to <a href="http://www.dot.net">www.dot.net</a>.</li>
+      <li>Click "Download."</li>
+      <li>Click "All .NET downloads."</li>
+      <li>Select ".NET 6.0 (recommended)" and download the SDK for your operating system.</li>
+      <li>Follow the installation instructions.</li>
+    </ol>
+    <p><strong>Pseudocode Hint</strong>:</p>
+    <pre><code>Go to website
+Click download
+Select .NET 6.0
+Download and install</code></pre>
+
+    <h3>Exercise 2: Create a Console Application</h3>
+    <p><strong>Objective</strong>: Create a new console application using Visual Studio.</p>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Open Visual Studio.</li>
+      <li>Select "Create a new project."</li>
+      <li>Choose "Console App" and name it <code>SimpleCSharpConsoleApp</code>.</li>
+      <li>Write the provided code in <code>Program.cs</code>.</li>
+    </ol>
+    <p><strong>Pseudocode Hint</strong>:</p>
+    <pre><code>Open Visual Studio
+Create new project
+Select Console App
+Name project
+Write code</code></pre>
+
+    <h3>Exercise 3: Modify the Console Application</h3>
+    <p><strong>Objective</strong>: Change the background and text colors of the console application.</p>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Open the <code>SimpleCSharpConsoleApp</code> project in Visual Studio.</li>
+      <li>Modify the code in <code>Program.cs</code> to change the console colors.</li>
+      <li>Run the application to see the changes.</li>
+    </ol>
+    <p><strong>Pseudocode Hint</strong>:</p>
+    <pre><code>Set console title
+Set text color
+Set background color
+Print welcome message
+Reset background color
+Wait for user input</code></pre>
+
+    <h3>Exercise 4: Check Installed SDKs and Runtimes</h3>
+    <p><strong>Objective</strong>: Use the command line to check your .NET installations.</p>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Open a command window.</li>
+      <li>Type <code>dotnet --version</code> to check the SDK version.</li>
+      <li>Type <code>dotnet --list-runtimes</code> to list installed runtimes.</li>
+      <li>Type <code>dotnet --list-sdks</code> to list installed SDKs.</li>
+    </ol>
+    <p><strong>Pseudocode Hint</strong>:</p>
+    <pre><code>Open command window
+Type dotnet --version
+Type dotnet --list-runtimes
+Type dotnet --list-sdks</code></pre>
+
+    <footer class="mt-4">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+          <li class="page-item active" aria-current="page"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">Next</a></li>
+              </ul>
+          </nav>
+        </footer>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+      </body>

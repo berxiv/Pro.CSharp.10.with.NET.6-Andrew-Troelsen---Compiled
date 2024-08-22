@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Learning C# Programming</h1>
+    
+    <h2>Simplified Guide to Razor Pages</h2>
+    <ol>
+      <li><strong>Introduction to Razor Pages</strong>
+        <p>Razor Pages are similar to MVC applications but are page-based. Each Razor Page has a <code>.cshtml</code> file (view) and a <code>.cshtml.cs</code> file (code-behind).</p>
+      </li>
+      <li><strong>Creating a Razor Page</strong>
+        <p>In Visual Studio, right-click the <code>Pages</code> directory, select <code>Add ➤ Razor Page ➤ Razor Page - Empty</code>. This creates two files: <code>YourPage.cshtml</code> and <code>YourPage.cshtml.cs</code>.</p>
+      </li>
+      <li><strong>PageModel Class</strong>
+        <p>The code-behind file (<code>YourPage.cshtml.cs</code>) inherits from <code>PageModel</code>. It contains methods to handle HTTP GET and POST requests:</p>
+        <pre><code>public class YourPageModel : PageModel {
+    public async Task OnGetAsync() { }
+    public async Task OnPostAsync() { }
+}</code></pre>
+      </li>
+      <li><strong>Data Binding</strong>
+        <p>Use properties in the <code>PageModel</code> to bind data to the view:</p>
+        <pre><code>public Car Entity { get; set; }</code></pre>
+      </li>
+      <li><strong>Handling Requests</strong>
+        <p>GET request handler:</p>
+        <pre><code>public async Task OnGetAsync() {
+    Entity = await _carDataService.FindAsync(6);
+    return Page();
+}</code></pre>
+        <p>POST request handler:</p>
+        <pre><code>public async Task OnPostAsync() {
+    await _carDataService.UpdateAsync(Entity);
+    return RedirectToPage("Index");
+}</code></pre>
+      </li>
+      <li><strong>View (Razor Syntax)</strong>
+        <p>Use Razor syntax to display data:</p>
+        <pre><code>@page
+@model YourPageModel
+<h1>@Model.Entity.PetName</h1></code></pre>
+      </li>
+      <li><strong>Form Handling</strong>
+        <p>Create forms in the view to handle user input:</p>
+        <pre><code><form method="post">
+    <input asp-for="Entity.PetName" />
+    <button type="submit">Save</button>
+</form></code></pre>
+      </li>
+      <li><strong>Partial Views and Templates</strong>
+        <p>Use partial views to reuse UI components. Create display and editor templates for complex types.</p>
+      </li>
+    </ol>
+
+    <h2>Pseudocode Exercises</h2>
+    <h3>Exercise 1: Create a Simple Razor Page</h3>
+    <ol>
+      <li><strong>Create a new Razor Page</strong>
+        <p>Right-click <code>Pages</code> ➤ Add ➤ Razor Page ➤ Razor Page - Empty. Name it <code>SimplePage</code>.</p>
+      </li>
+      <li><strong>Update the PageModel</strong>
+        <pre><code>public class SimplePageModel : PageModel {
+    public string Message { get; set; }
+    public void OnGet() {
+        Message = "Hello, World!";
+    }
+}</code></pre>
+      </li>
+      <li><strong>Update the View</strong>
+        <pre><code>@page
+@model SimplePageModel
+<h1>@Model.Message</h1></code></pre>
+      </li>
+    </ol>
+
+    <h3>Exercise 2: Create a Form to Add a Car</h3>
+    <ol>
+      <li><strong>Create a new Razor Page</strong>
+        <p>Right-click <code>Pages</code> ➤ Add ➤ Razor Page ➤ Razor Page - Empty. Name it <code>AddCar</code>.</p>
+      </li>
+      <li><strong>Update the PageModel</strong>
+        <pre><code>public class AddCarModel : PageModel {
+    [BindProperty]
+    public Car NewCar { get; set; }
+    public void OnGet() { }
+    public async Task OnPostAsync() {
+        // Save NewCar to the database
+        return RedirectToPage("Index");
+    }
+}</code></pre>
+      </li>
+      <li><strong>Update the View</strong>
+        <pre><code>@page
+@model AddCarModel
+<h1>Add a New Car</h1>
+<form method="post">
+    <label for="PetName">Pet Name:</label>
+    <input asp-for="NewCar.PetName" />
+    <button type="submit">Add Car</button>
+</form></code></pre>
+      </li>
+    </ol>
+
+    <footer class="mt-4">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+          <li class="page-item active" aria-current="page"><a class="page-link" href="#">34</a></li>
+          <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+              </ul>
+          </nav>
+        </footer>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+      </body>

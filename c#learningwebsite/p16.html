@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Chapter 16: Building and Configuring Class Libraries</h1>
+    
+    <h2>Introduction</h2>
+    <p>In this chapter, you'll learn how to create reusable code libraries in .NET. These libraries can be shared among different applications. We'll cover:</p>
+    <ul>
+      <li>Custom namespaces</li>
+      <li>Class libraries</li>
+      <li>Application configuration</li>
+      <li>Publishing applications</li>
+      <li>Packaging libraries into NuGet packages</li>
+    </ul>
+    
+    <h2>Custom Namespaces</h2>
+    <p>Namespaces help organize your code and avoid name conflicts. You can create custom namespaces using the <code>namespace</code> keyword.</p>
+    <pre><code>namespace CustomNamespaces.MyShapes {
+    public class Circle { /* Methods */ }
+    public class Hexagon { /* Methods */ }
+    public class Square { /* Methods */ }
+}</code></pre>
+    
+    <h3>File-Scoped Namespaces (C# 10)</h3>
+    <p>C# 10 introduced file-scoped namespaces, which simplify the syntax.</p>
+    <pre><code>namespace CustomNamespaces.MyShapes;
+
+public class Circle { /* Methods */ }
+public class Hexagon { /* Methods */ }
+public class Square { /* Methods */ }</code></pre>
+    
+    <h3>Using Namespaces</h3>
+    <p>To use types from a namespace, use the <code>using</code> keyword.</p>
+    <pre><code>using CustomNamespaces.MyShapes;
+
+Hexagon h = new Hexagon();
+Circle c = new Circle();
+Square s = a Square();</code></pre>
+    
+    <h3>Resolving Name Clashes</h3>
+    <p>If two namespaces have classes with the same name, use fully qualified names or aliases to avoid conflicts.</p>
+    <pre><code>CustomNamespaces.MyShapes.Hexagon h = new CustomNamespaces.MyShapes.Hexagon();</code></pre>
+    
+    <h3>Exercises</h3>
+    <ol>
+      <li>
+        <strong>Create a Namespace</strong>
+        <p>Create a new .NET Console Application. Define a namespace <code>MyLibrary.Shapes</code> with classes <code>Triangle</code>, <code>Rectangle</code>, and <code>Circle</code>.</p>
+        <pre><code>namespace MyLibrary.Shapes {
+    public class Triangle { /* Methods */ }
+    public class Rectangle { /* Methods */ }
+    public class Circle { /* Methods */ }
+}</code></pre>
+      </li>
+      <li>
+        <strong>Use a Namespace</strong>
+        <p>Create another class that uses the <code>MyLibrary.Shapes</code> namespace.</p>
+        <pre><code>using MyLibrary.Shapes;
+
+Triangle t = new Triangle();
+Rectangle r = new Rectangle();
+Circle c = new Circle();</code></pre>
+      </li>
+    </ol>
+    
+    <h2>Class Libraries</h2>
+    <p>Class libraries are .NET assemblies (*.dll files) that contain reusable code.</p>
+    
+    <h3>Creating a Class Library</h3>
+    <ol>
+      <li>Create a new class library project.</li>
+      <li>Add classes and methods to the library.</li>
+    </ol>
+    <pre><code>namespace CarLibrary {
+    public abstract class Car {
+        public string PetName { get; set; }
+        public abstract void TurboBoost();
+    }
+
+    public class SportsCar : Car {
+        public override void TurboBoost() {
+            Console.WriteLine("Ramming speed!");
+        }
+    }
+
+    public class MiniVan : Car {
+        public override void TurboBoost() {
+            Console.WriteLine("Eek! Your engine exploded!");
+        }
+    }
+}</code></pre>
+    
+    <h3>Exercises</h3>
+    <ol>
+      <li>
+        <strong>Create a Class Library</strong>
+        <p>Create a class library project named <code>VehicleLibrary</code>. Add classes <code>Car</code>, <code>Truck</code>, and <code>Motorcycle</code> with a method <code>Drive()</code>.</p>
+        <pre><code>namespace VehicleLibrary {
+    public class Car {
+        public void Drive() { /* Implementation */ }
+    }
+    public class Truck {
+        public void Drive() { /* Implementation */ }
+    }
+    public class Motorcycle {
+        public void Drive() { /* Implementation */ }
+    }
+}</code></pre>
+      </li>
+      <li>
+        <strong>Use the Class Library</strong>
+        <p>Create a console application that references <code>VehicleLibrary</code> and uses its classes.</p>
+        <pre><code>using VehicleLibrary;
+
+Car myCar = new Car();
+myCar.Drive();</code></pre>
+      </li>
+    </ol>
+    
+    <h2>Application Configuration</h2>
+    <p>Configuration files allow you to change settings without modifying the code. JSON is commonly used for configuration.</p>
+    
+    <h3>Example</h3>
+    <ol>
+      <li>Create a <code>appsettings.json</code> file:</li>
+    </ol>
+    <pre><code>{
+    "CarName": "Suzy"
+}</code></pre>
+    <ol start="2">
+      <li>Read the configuration in your application:</li>
+    </ol>
+    <pre><code>using Microsoft.Extensions.Configuration;
+
+IConfiguration config = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+Console.WriteLine($"Car name: {config["CarName"]}");</code></pre>
+    
+    <h3>Exercises</h3>
+    <ol>
+      <li>
+        <strong>Create a Configuration File</strong>
+        <p>Create a JSON configuration file with settings for <code>AppName</code> and <code>Version</code>.</p>
+        <pre><code>{
+    "AppName": "MyApp",
+    "Version": "1.0"
+}</code></pre>
+      </li>
+      <li>
+        <strong>Read Configuration Settings</strong>
+        <p>Write code to read and display the settings from the JSON file.</p>
+        <pre><code>IConfiguration config = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+Console.WriteLine($"App name: {config["AppName"]}");
+Console.WriteLine($"Version: {config["Version"]}");</code></pre>
+      </li>
+    </ol>
+    
+    <h2>Publishing Applications</h2>
+    <p>You can publish .NET applications to share them with others. There are two main types of deployment:</p>
+    <ul>
+      <li><strong>Framework-dependent deployment</strong>: Requires .NET runtime on the target machine.</li>
+      <li><strong>Self-contained deployment</strong>: Includes the .NET runtime with the application.</li>
+    </ul>
+    
+    <h3>Example</h3>
+    <pre><code>dotnet publish -c Release -r win-x64 -o publish</code></pre>
+    
+    <h3>Exercises</h3>
+    <ol>
+      <li>
+        <strong>Publish a Console Application</strong>
+        <p>Create a console application and publish it as a framework-dependent deployment.</p>
+        <pre><code>dotnet publish -c Release -o publish</code></pre>
+      </li>
+      <li>
+        <strong>Publish as Self-Contained</strong>
+        <p>Publish the same application as a self-contained deployment.</p>
+        <pre><code>dotnet publish -c Release -r win-x64 -o publish --self-contained</code></pre>
+      </li>
+    </ol>
+    
+    <h2>Packaging Libraries with NuGet</h2>
+    <p>NuGet is a package manager for .NET. You can create and share packages with others.</p>
+    
+    <h3>Example</h3>
+    <ol>
+      <li>Add package metadata in the project file:</li>
+    </ol>
+    <pre><code><PropertyGroup>
+    <PackageId>CarLibrary</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>YourName</Authors>
+    <Description>A library for cars</Description>
+</PropertyGroup></code></pre>
+    <ol start="2">
+      <li>Create the package:</li>
+    </ol>
+    <pre><code>dotnet pack -o nupkgs</code></pre>
+    
+    <h3>Exercises</h3>
+<ol>
+  <li>
+    <strong>Create a Namespace</strong>
+    <p>Create a new .NET Console Application. Define a namespace <code>MyLibrary.Shapes</code> with classes <code>Triangle</code>, <code>Rectangle</code>, and <code>Circle</code>.</p>
+    <pre><code>namespace MyLibrary.Shapes {
+    public class Triangle { /* Methods */ }
+    public class Rectangle { /* Methods */ }
+    public class Circle { /* Methods */ }
+}</code></pre>
+  </li>
+  <li>
+    <strong>Use a Namespace</strong>
+    <p>Create another class that uses the <code>MyLibrary.Shapes</code> namespace.</p>
+    <pre><code>using MyLibrary.Shapes;
+
+Triangle t = new Triangle();
+Rectangle r = new Rectangle();
+Circle c = new Circle();</code></pre>
+  </li>
+</ol>
+
+<h3>Exercises</h3>
+<ol>
+  <li>
+    <strong>Create a Class Library</strong>
+    <p>Create a class library project named <code>VehicleLibrary</code>. Add classes <code>Car</code>, <code>Truck</code>, and <code>Motorcycle</code> with a method <code>Drive()</code>.</p>
+    <pre><code>namespace VehicleLibrary {
+    public class Car {
+        public void Drive() { /* Implementation */ }
+    }
+    public class Truck {
+        public void Drive() { /* Implementation */ }
+    }
+    public class Motorcycle {
+        public void Drive() { /* Implementation */ }
+    }
+}</code></pre>
+  </li>
+  <li>
+    <strong>Use the Class Library</strong>
+    <p>Create a console application that references <code>VehicleLibrary</code> and uses its classes.</p>
+    <pre><code>using VehicleLibrary;
+
+Car myCar = new Car();
+myCar.Drive();</code></pre>
+  </li>
+</ol>
+
+<h3>Exercises</h3>
+<ol>
+  <li>
+    <strong>Create a Configuration File</strong>
+    <p>Create a JSON configuration file with settings for <code>AppName</code> and <code>Version</code>.</p>
+    <pre><code>{
+    "AppName": "MyApp",
+    "Version": "1.0"
+}</code></pre>
+  </li>
+  <li>
+    <strong>Read Configuration Settings</strong>
+    <p>Write code to read and display the settings from the JSON file.</p>
+    <pre><code>IConfiguration config = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+Console.WriteLine($"App name: {config["AppName"]}");
+Console.WriteLine($"Version: {config["Version"]}");</code></pre>
+  </li>
+</ol>
+
+<h3>Exercises</h3>
+<ol>
+  <li>
+    <strong>Publish a Console Application</strong>
+    <p>Create a console application and publish it as a framework-dependent deployment.</p>
+    <pre><code>dotnet publish -c Release -o publish</code></pre>
+  </li>
+  <li>
+    <strong>Publish as Self-Contained</strong>
+    <p>Publish the same application as a self-contained deployment.</p>
+    <pre><code>dotnet publish -c Release -r win-x64 -o publish --self-contained</code></pre>
+  </li>
+</ol>
+
+<h3>Exercises</h3>
+<ol>
+  <li>
+    <strong>Create a NuGet Package</strong>
+    <p>Add metadata to your class library project and create a NuGet package.</p>
+    <pre><code><PropertyGroup>
+    <PackageId>VehicleLibrary</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>YourName</Authors>
+    <Description>A library for vehicles</Description>
+</PropertyGroup></code></pre>
+    <pre><code>dotnet pack -o nupkgs</code></pre>
+  </li>
+  <li>
+    <strong>Use a NuGet Package</strong>
+    <p>Create a new project and add a reference to the NuGet package you created.</p>
+    <pre><code>dotnet add package VehicleLibrary --source ./nupkgs</code></pre>
+  </li>
+</ol>
+<footer class="mt-4">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+      <li class="page-item active" aria-current="page"><a class="page-link" href="#">16</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">Next</a></li>
+          </ul>
+      </nav>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+  </body>

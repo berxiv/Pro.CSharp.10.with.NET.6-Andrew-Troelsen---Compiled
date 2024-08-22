@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Learning C# Programming</h1>
+    <h2>Chapter 26: WPF Controls, Layouts, Events, and Data Binding</h2>
+
+    <h3>Introduction</h3>
+    <p>This chapter is about creating user interfaces (UIs) in WPF (Windows Presentation Foundation). You'll learn about different controls, layouts, events, and data binding.</p>
+
+    <h3>Core WPF Controls</h3>
+    <ul>
+      <li><strong>Buttons</strong>: Clickable elements.</li>
+      <li><strong>TextBox</strong>: For user input.</li>
+      <li><strong>ComboBox</strong>: Dropdown list.</li>
+      <li><strong>ListBox</strong>: List of items.</li>
+      <li><strong>Slider</strong>: For selecting a value from a range.</li>
+    </ul>
+
+    <h3>Layout Controls</h3>
+    <ul>
+      <li><strong>Grid</strong>: Divides space into rows and columns.</li>
+      <li><strong>StackPanel</strong>: Stacks elements vertically or horizontally.</li>
+      <li><strong>WrapPanel</strong>: Wraps elements to the next line when there's no more space.</li>
+      <li><strong>Canvas</strong>: Allows absolute positioning of elements.</li>
+    </ul>
+
+    <h3>Events</h3>
+    <p>Events are actions like clicks or key presses. You can write code to respond to these events.</p>
+
+    <h3>Data Binding</h3>
+    <p>Data binding connects UI elements to data sources, like variables or databases. This keeps the UI updated when the data changes.</p>
+
+    <h3>Exercises</h3>
+
+    <h4>Exercise 1: Create a Simple UI</h4>
+    <p><strong>Goal</strong>: Create a window with a Button, TextBox, and Label.</p>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Create a new WPF project.</li>
+      <li>Add a Button, TextBox, and Label to the window.</li>
+      <li>Write code to update the Label when the Button is clicked.</li>
+    </ol>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>
+// Create a new WPF project
+// Add Button, TextBox, and Label to the window
+// On Button click, set Label text to TextBox text
+    </code></pre>
+    <p><strong>Code Example</strong>:</p>
+    <pre><code>
+<Button Name="myButton" Content="Click Me" Click="myButton_Click"/>
+<TextBox Name="myTextBox"/>
+<Label Name="myLabel"/>
+
+private void myButton_Click(object sender, RoutedEventArgs e)
+{
+    myLabel.Content = myTextBox.Text;
+}
+    </code></pre>
+
+    <h4>Exercise 2: Use a Grid Layout</h4>
+    <p><strong>Goal</strong>: Arrange elements using a Grid.</p>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Create a new WPF project.</li>
+      <li>Add a Grid to the window.</li>
+      <li>Define rows and columns.</li>
+      <li>Place elements in the Grid.</li>
+    </ol>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>
+// Create a new WPF project
+// Add Grid to the window
+// Define rows and columns
+// Place Button, TextBox, and Label in the Grid
+    </code></pre>
+    <p><strong>Code Example</strong>:</p>
+    <pre><code>
+<Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+
+    <Button Grid.Row="0" Grid.Column="0" Content="Click Me" Click="myButton_Click"/>
+    <TextBox Grid.Row="0" Grid.Column="1" Name="myTextBox"/>
+    <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="myLabel"/>
+</Grid>
+    </code></pre>
+
+    <h4>Exercise 3: Data Binding</h4>
+    <p><strong>Goal</strong>: Bind a Slider to a Label.</p>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Create a new WPF project.</li>
+      <li>Add a Slider and a Label to the window.</li>
+      <li>Bind the Slider's value to the Label's content.</li>
+    </ol>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>
+// Create a new WPF project
+// Add Slider and Label to the window
+// Bind Slider value to Label content
+    </code></pre>
+    <p><strong>Code Example</strong>:</p>
+    <pre><code>
+<Slider Name="mySlider" Minimum="0" Maximum="100" ValueChanged="mySlider_ValueChanged"/>
+<Label Name="myLabel"/>
+
+private void mySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+{
+    myLabel.Content = mySlider.Value.ToString();
+}
+    </code></pre>
+
+    <footer class="mt-4">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+          <li class="page-item active" aria-current="page"><a class="page-link" href="#">26</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">Next</a></li>
+              </ul>
+          </nav>
+        </footer>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+      </body>

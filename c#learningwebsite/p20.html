@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Learning C# Programming</h1>
+    <h2>Chapter 20: Data Access with ADO.NET</h2>
+    <p>ADO.NET is a set of tools in .NET that helps you work with databases. It includes different types of data providers for different databases like SQL Server, Oracle, and MySQL.</p>
+    
+    <h3>Key Concepts</h3>
+    <ul>
+      <li><strong>Data Providers</strong>: These are specific to each database type and include classes like <code>DbConnection</code>, <code>DbCommand</code>, <code>DbDataReader</code>, and <code>DbDataAdapter</code>.</li>
+      <li><strong>Connection</strong>: Used to connect to a database.</li>
+      <li><strong>Command</strong>: Used to execute SQL queries.</li>
+      <li><strong>DataReader</strong>: Used to read data from the database.</li>
+      <li><strong>DataAdapter</strong>: Used to transfer data between the database and your application.</li>
+    </ul>
+    
+    <h3>Basic Steps to Access Data</h3>
+    <ol>
+      <li><strong>Create a Connection</strong>: Connect to the database.</li>
+      <li><strong>Create a Command</strong>: Write your SQL query.</li>
+      <li><strong>Execute the Command</strong>: Run the query and get results.</li>
+      <li><strong>Read Data</strong>: Use a DataReader to read the results.</li>
+    </ol>
+    
+    <h3>Example</h3>
+    <pre><code>
+using (SqlConnection connection = new SqlConnection("your_connection_string"))
+{
+    connection.Open();
+    SqlCommand command = new SqlCommand("SELECT * FROM Inventory", connection);
+    SqlDataReader reader = command.ExecuteReader();
+    while (reader.Read())
+    {
+        Console.WriteLine(reader["ColumnName"]);
+    }
+}
+    </code></pre>
+    
+    <h3>Exercises</h3>
+    
+    <h4>Exercise 1: Connect to a Database</h4>
+    <p><strong>Goal</strong>: Write a program to connect to a database and print a success message.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>
+1. Create a connection string.
+2. Open a connection.
+3. Print "Connection successful".
+4. Close the connection.
+    </code></pre>
+    <p><strong>Hint</strong>:</p>
+    <pre><code>
+using (SqlConnection connection = new SqlConnection("your_connection_string"))
+{
+    connection.Open();
+    Console.WriteLine("Connection successful");
+    connection.Close();
+}
+    </code></pre>
+    
+    <h4>Exercise 2: Execute a Simple Query</h4>
+    <p><strong>Goal</strong>: Write a program to execute a query that retrieves all records from a table and prints them.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>
+1. Create a connection string.
+2. Open a connection.
+3. Create a command with a SELECT query.
+4. Execute the command.
+5. Read and print the results.
+6. Close the connection.
+    </code></pre>
+    <p><strong>Hint</strong>:</p>
+    <pre><code>
+using (SqlConnection connection = new SqlConnection("your_connection_string"))
+{
+    connection.Open();
+    SqlCommand command = new SqlCommand("SELECT * FROM Inventory", connection);
+    SqlDataReader reader = command.ExecuteReader();
+    while (reader.Read())
+    {
+        Console.WriteLine(reader["ColumnName"]);
+    }
+    connection.Close();
+}
+    </code></pre>
+    
+    <h4>Exercise 3: Insert a Record</h4>
+    <p><strong>Goal</strong>: Write a program to insert a new record into a table.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>
+1. Create a connection string.
+2. Open a connection.
+3. Create a command with an INSERT query.
+4. Execute the command.
+5. Print "Record inserted".
+6. Close the connection.
+    </code></pre>
+    <p><strong>Hint</strong>:</p>
+    <pre><code>
+using (SqlConnection connection = new SqlConnection("your_connection_string"))
+{
+    connection.Open();
+    SqlCommand command = new SqlCommand("INSERT INTO Inventory (Column1, Column2) VALUES (Value1, Value2)", connection);
+    command.ExecuteNonQuery();
+    Console.WriteLine("Record inserted");
+    connection.Close();
+}
+    </code></pre>
+    
+    <h4>Exercise 4: Update a Record</h4>
+    <p><strong>Goal</strong>: Write a program to update an existing record in a table.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>
+1. Create a connection string.
+2. Open a connection.
+3. Create a command with an UPDATE query.
+4. Execute the command.
+5. Print "Record updated".
+6. Close the connection.
+    </code></pre>
+    <p><strong>Hint</strong>:</p>
+    <pre><code>
+using (SqlConnection connection = new SqlConnection("your_connection_string"))
+{
+    connection.Open();
+    SqlCommand command = new SqlCommand("UPDATE Inventory SET Column1 = NewValue WHERE Column2 = SomeValue", connection);
+    command.ExecuteNonQuery();
+    Console.WriteLine("Record updated");
+    connection.Close();
+}
+    </code></pre>
+    
+    <h4>Exercise 5: Delete a Record</h4>
+    <p><strong>Goal</strong>: Write a program to delete a record from a table.</p>
+    <p><strong>Pseudocode</strong>:</p>
+    <pre><code>
+1. Create a connection string.
+2. Open a connection.
+3. Create a command with a DELETE query.
+4. Execute the command.
+5. Print "Record deleted".
+6. Close the connection.
+    </code></pre>
+    <p><strong>Hint</strong>:</p>
+    <pre><code>
+using (SqlConnection connection = new SqlConnection("your_connection_string"))
+{
+    connection.Open();
+    SqlCommand command = new SqlCommand("DELETE FROM Inventory WHERE Column1 = SomeValue", connection);
+    command.ExecuteNonQuery();
+    Console.WriteLine("Record deleted");
+    connection.Close();
+}
+    </code></pre>
+    
+    <h3>Summary</h3>
+    <ul>
+      <li><strong>ADO.NET</strong> helps you interact with databases.</li>
+      <li><strong>Connections</strong> are used to connect to databases.</li>
+      <li><strong>Commands</strong> are used to execute SQL queries.</li>
+      <li><strong>DataReaders</strong> are used to read data.</li>
+      <li><strong>DataAdapters</strong> are used to transfer data between the database and your application.</li>
+    </ul>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+  </body>
+</html>
+<footer class="mt-4">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+      <li class="page-item active" aria-current="page"><a class="page-link" href="#">20</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">Next</a></li>
+          </ul>
+      </nav>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+  </body>

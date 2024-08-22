@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Chapter 3: Core C# Programming Constructs, Part 1</h1>
+    <p>This chapter introduces key concepts in C# programming. You'll learn about:</p>
+    <ul>
+      <li>Building a program's application object.</li>
+      <li>The Main() method and top-level statements.</li>
+      <li>Fundamental C# data types.</li>
+      <li>Data type conversion techniques.</li>
+      <li>The <code>var</code> keyword for implicit typing.</li>
+      <li>Control flow using loops and decision constructs.</li>
+    </ul>
+
+    <h2>Breaking Down a Simple C# Program</h2>
+    <p>C# programs must have all logic within a type definition (like a class). Here's how to create a simple C# console application:</p>
+    <ol>
+      <li><strong>Create a Solution and Project:</strong>
+        <p>Use Visual Studio or the command line to create a new solution and console application.</p>
+        <pre><code>dotnet new sln -n Chapter3_AllProjects
+dotnet new console -lang c# -n SimpleCSharpApp -o .\SimpleCSharpApp -f net6.0
+dotnet sln .\Chapter3_AllProjects.sln add .\SimpleCSharpApp</code></pre>
+      </li>
+      <li><strong>Write the Main Method:</strong>
+        <p>The Main method is the entry point of the application.</p>
+        <pre><code>class Program {
+    static void Main(string[] args) {
+        Console.WriteLine("Hello, World!");
+    }
+}</code></pre>
+      </li>
+    </ol>
+
+    <h2>Using Top-Level Statements</h2>
+    <p>C# 9.0 introduced top-level statements, allowing you to write simpler code without the need for a class or Main method.</p>
+    <pre><code>Console.WriteLine("Hello, World!");</code></pre>
+
+    <h2>Data Types and Variables</h2>
+    <p>C# has several built-in data types, like <code>int</code>, <code>string</code>, and <code>bool</code>. You can declare variables using these types.</p>
+    <pre><code>int myInt = 0;
+string myString = "Hello";
+bool myBool = true;</code></pre>
+
+    <h2>Implicit Typing with <code>var</code></h2>
+    <p>You can use <code>var</code> to let the compiler infer the type of a variable.</p>
+    <pre><code>var myInt = 0; // inferred as int
+var myString = "Hello"; // inferred as string</code></pre>
+
+    <h2>Control Flow: Loops and Decision Constructs</h2>
+    <p>C# provides several ways to control the flow of your program, including loops (<code>for</code>, <code>foreach</code>, <code>while</code>, <code>do-while</code>) and decision constructs (<code>if-else</code>, <code>switch</code>).</p>
+    <h3>Example of a <code>for</code> loop:</h3>
+    <pre><code>for (int i = 0; i < 5; i++) {
+    Console.WriteLine(i);
+}</code></pre>
+    <h3>Example of an <code>if-else</code> statement:</h3>
+    <pre><code>if (myInt > 0) {
+    Console.WriteLine("Positive number");
+} else {
+    Console.WriteLine("Non-positive number");
+}</code></pre>
+
+    <h2>Exercises</h2>
+    <ol>
+      <li><strong>Create a Simple Console Application:</strong>
+        <p>Write a program that prints "Hello, World!" to the console.</p>
+        <pre><code>// Pseudocode Hint:
+Start
+Print "Hello, World!"
+End</code></pre>
+      </li>
+      <li><strong>Using Variables:</strong>
+        <p>Declare and initialize variables of different types (<code>int</code>, <code>string</code>, <code>bool</code>). Print their values to the console.</p>
+        <pre><code>// Pseudocode Hint:
+Start
+Declare int variable and assign a value
+Declare string variable and assign a value
+Declare bool variable and assign a value
+Print all variable values
+End</code></pre>
+      </li>
+      <li><strong>Control Flow with Loops:</strong>
+        <p>Write a <code>for</code> loop that prints numbers from 1 to 10.</p>
+        <pre><code>// Pseudocode Hint:
+Start
+For i from 1 to 10
+    Print i
+End For
+End</code></pre>
+      </li>
+      <li><strong>Decision Making:</strong>
+        <p>Write an <code>if-else</code> statement that checks if a number is positive, negative, or zero.</p>
+        <pre><code>// Pseudocode Hint:
+Start
+If number > 0
+    Print "Positive"
+Else If number < 0
+    Print "Negative"
+Else
+    Print "Zero"
+End If
+End</code></pre>
+      </li>
+      <li><strong>Using <code>var</code> Keyword:</strong>
+        <p>Declare variables using <code>var</code> and print their types.</p>
+        <pre><code>// Pseudocode Hint:
+Start
+Declare var variable and assign an int value
+Declare var variable and assign a string value
+Print types of both variables
+End</code></pre>
+      </li>
+    </ol>
+
+    <footer class="mt-4">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+          <li class="page-item" aria-current="page"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">2</a></li>
+          <li class="page-item active"><a class="page-link" href="#">3</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">Next</a></li>
+              </ul>
+          </nav>
+        </footer>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+      </body>
+    </html>

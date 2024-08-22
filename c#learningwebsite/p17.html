@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Chapter 17: Type Reflection, Late Binding, Attributes, and Dynamic Types</h1>
+    
+    <h2>Introduction</h2>
+    <p>In .NET, assemblies are the basic units of deployment. You can examine the types within these assemblies using tools like Visual Studio's Object Browser or <code>ildasm.exe</code>. This chapter covers how to programmatically obtain information about types using the <code>System.Reflection</code> namespace. It also discusses dynamic loading, late binding, and custom attributes.</p>
+
+    <h2>Key Concepts</h2>
+    <ul>
+      <li><strong>Type Metadata</strong>: Metadata describes types (classes, interfaces, etc.) in .NET. It's essential for various .NET features like serialization and IntelliSense.</li>
+      <li><strong>Reflection</strong>: Reflection is the process of examining metadata at runtime. You can use it to get information about assemblies, types, methods, properties, and more.</li>
+      <li><strong>Dynamic Loading and Late Binding</strong>: These techniques allow you to load assemblies and create instances of types at runtime without knowing them at compile time.</li>
+      <li><strong>Attributes</strong>: Attributes are metadata you can add to your code to provide additional information. They can be predefined or custom.</li>
+      <li><strong>Dynamic Types</strong>: The <code>dynamic</code> keyword in C# allows you to bypass compile-time type checking, making your code more flexible but also more prone to runtime errors.</li>
+    </ul>
+
+    <h2>Simplified Content</h2>
+    <h3>Type Metadata</h3>
+    <p><strong>What is Metadata?</strong> Metadata is data about data. In .NET, it describes your code (types, methods, properties).</p>
+    <p><strong>Why is it Important?</strong> It helps tools and libraries understand your code, enabling features like IntelliSense and serialization.</p>
+
+    <h3>Reflection</h3>
+    <p><strong>What is Reflection?</strong> It's a way to look at the metadata of your code while the program is running.</p>
+    <p><strong>How to Use It?</strong> Use the <code>System.Reflection</code> namespace to get information about types, methods, properties, etc.</p>
+
+    <h3>Dynamic Loading and Late Binding</h3>
+    <p><strong>Dynamic Loading</strong>: Load assemblies at runtime using <code>Assembly.LoadFrom()</code>.</p>
+    <p><strong>Late Binding</strong>: Create instances and call methods on types you didn't know about at compile time using <code>Activator.CreateInstance()</code> and <code>MethodInfo.Invoke()</code>.</p>
+
+    <h3>Attributes</h3>
+    <p><strong>What are Attributes?</strong> Special tags you can add to your code to provide extra information.</p>
+    <p><strong>How to Use Them?</strong> Apply attributes using square brackets, e.g., <code>[Obsolete("Use another method")]</code>.</p>
+
+    <h3>Dynamic Types</h3>
+    <p><strong>What is <code>dynamic</code>?</strong> A keyword that lets you skip compile-time type checking.</p>
+    <p><strong>Why Use It?</strong> It makes your code more flexible but can lead to runtime errors if not used carefully.</p>
+
+    <h2>Exercises</h2>
+
+    <h3>Exercise 1: Using Reflection</h3>
+    <p><strong>Goal</strong>: Get information about a type using reflection.</p>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Create a class <code>Car</code> with properties <code>Make</code> and <code>Model</code>.</li>
+      <li>Use reflection to list all properties of the <code>Car</code> class.</li>
+    </ol>
+    <pre><code class="language-csharp">
+class Car {
+    public string Make { get; set; }
+    public string Model { get; set; }
+}
+
+Type carType = typeof(Car);
+PropertyInfo[] properties = carType.GetProperties();
+foreach (PropertyInfo property in properties) {
+    Console.WriteLine(property.Name);
+}
+    </code></pre>
+
+    <h3>Exercise 2: Dynamic Loading and Late Binding</h3>
+    <p><strong>Goal</strong>: Load an assembly and create an instance of a type at runtime.</p>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Create a class library with a class <code>Calculator</code> that has a method <code>Add(int a, int b)</code>.</li>
+      <li>Load the assembly and call the <code>Add</code> method using late binding.</li>
+    </ol>
+    <pre><code class="language-csharp">
+Assembly asm = Assembly.LoadFrom("CalculatorLibrary.dll");
+Type calculatorType = asm.GetType("CalculatorLibrary.Calculator");
+object calculatorInstance = Activator.CreateInstance(calculatorType);
+MethodInfo addMethod = calculatorType.GetMethod("Add");
+int result = (int)addMethod.Invoke(calculatorInstance, new object[] { 5, 10 });
+Console.WriteLine(result);
+    </code></pre>
+
+    <h3>Exercise 3: Using Attributes</h3>
+    <p><strong>Goal</strong>: Apply and read custom attributes.</p>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Create a custom attribute <code>DeveloperInfo</code> with properties <code>Name</code> and <code>Level</code>.</li>
+      <li>Apply this attribute to a class <code>Project</code>.</li>
+      <li>Use reflection to read the attribute values.</li>
+    </ol>
+    <pre><code class="language-csharp">
+[AttributeUsage(AttributeTargets.Class)]
+public class DeveloperInfoAttribute : Attribute {
+    public string Name { get; set; }
+    public string Level { get; set; }
+}
+
+[DeveloperInfo(Name = "Alice", Level = "Senior")]
+public class Project {
+    // Project details
+}
+
+Type projectType = typeof(Project);
+object[] attributes = projectType.GetCustomAttributes(false);
+foreach (DeveloperInfoAttribute attr in attributes) {
+    Console.WriteLine($"Name: {attr.Name}, Level: {attr.Level}");
+}
+    </code></pre>
+
+    <h3>Exercise 4: Using Dynamic Types</h3>
+    <p><strong>Goal</strong>: Use the <code>dynamic</code> keyword to call methods on an object.</p>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Create a class <code>Printer</code> with a method <code>Print(string message)</code>.</li>
+      <li>Use a <code>dynamic</code> variable to call the <code>Print</code> method.</li>
+    </ol>
+    <pre><code class="language-csharp">
+public class Printer {
+    public void Print(string message) {
+        Console.WriteLine(message);
+    }
+}
+
+dynamic printer = new Printer();
+printer.Print("Hello, World!");
+    </code></pre>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+  </body>
+</html>
+<footer class="mt-4">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+      <li class="page-item active" aria-current="page"><a class="page-link" href="#">17</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">Next</a></li>
+          </ul>
+      </nav>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+  </body>

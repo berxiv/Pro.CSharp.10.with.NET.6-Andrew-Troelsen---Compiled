@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Chapter 14: Processes, AppDomains, and Load Contexts</h1>
+
+    <h2>Introduction</h2>
+    <p>In this chapter, we'll learn about how .NET Core applications run. We'll cover processes, application domains (AppDomains), and load contexts.</p>
+
+    <h3>Key Concepts:</h3>
+    <ul>
+      <li><strong>Process</strong>: A running program with its own resources.</li>
+      <li><strong>AppDomain</strong>: A logical subdivision within a process that hosts .NET Core assemblies.</li>
+      <li><strong>Load Context</strong>: A way to manage and isolate assemblies within an AppDomain.</li>
+    </ul>
+
+    <h2>What is a Process?</h2>
+    <p>A process is a running program. Each .NET Core application runs in its own process, which keeps it isolated from other applications. This isolation makes the system more stable because if one process crashes, it doesn't affect others.</p>
+
+    <h3>Key Points:</h3>
+    <ul>
+      <li>Each process has a unique ID (PID).</li>
+      <li>Processes can be viewed in the Windows Task Manager.</li>
+    </ul>
+
+    <h2>What is a Thread?</h2>
+    <p>A thread is a path of execution within a process. The first thread created is called the primary thread. Processes can have multiple threads to perform tasks simultaneously, which can make programs more responsive.</p>
+
+    <h3>Key Points:</h3>
+    <ul>
+      <li><strong>Primary Thread</strong>: The main thread created when the application starts.</li>
+      <li><strong>Worker Threads</strong>: Additional threads created to perform tasks.</li>
+    </ul>
+
+    <h2>Interacting with Processes in .NET Core</h2>
+    <p>.NET Core provides tools to interact with processes using the <code>System.Diagnostics</code> namespace. You can start, stop, and get information about processes.</p>
+
+    <h3>Key Classes:</h3>
+    <ul>
+      <li><strong>Process</strong>: Represents a running process.</li>
+      <li><strong>ProcessStartInfo</strong>: Provides information to start a process.</li>
+      <li><strong>ProcessThread</strong>: Represents a thread within a process.</li>
+    </ul>
+
+    <h2>Exercises</h2>
+
+    <h3>Exercise 1: List All Running Processes</h3>
+    <p>Write a program to list all running processes on your computer.</p>
+
+    <h4>Pseudocode:</h4>
+    <pre><code>
+1. Import System.Diagnostics namespace.
+2. Get all running processes.
+3. For each process, print its ID and name.
+    </code></pre>
+
+    <h4>Code Hint:</h4>
+    <pre><code>
+using System.Diagnostics;
+
+var runningProcs = Process.GetProcesses();
+foreach (var proc in runningProcs)
+{
+    Console.WriteLine($"PID: {proc.Id}, Name: {proc.ProcessName}");
+}
+    </code></pre>
+
+    <h3>Exercise 2: Start and Kill a Process</h3>
+    <p>Write a program to start a web browser and then close it after a key press.</p>
+
+    <h4>Pseudocode:</h4>
+    <pre><code>
+1. Import System.Diagnostics namespace.
+2. Start the web browser process.
+3. Wait for user input.
+4. Kill the web browser process.
+    </code></pre>
+
+    <h4>Code Hint:</h4>
+    <pre><code>
+using System.Diagnostics;
+
+var proc = Process.Start("msedge.exe", "www.example.com");
+Console.WriteLine("Press Enter to close the browser...");
+Console.ReadLine();
+proc.Kill();
+    </code></pre>
+
+    <h3>Exercise 3: Investigate a Specific Process</h3>
+    <p>Write a program to get details about a specific process using its PID.</p>
+
+    <h4>Pseudocode:</h4>
+    <pre><code>
+1. Import System.Diagnostics namespace.
+2. Get the process by PID.
+3. Print process details like name and start time.
+    </code></pre>
+
+    <h4>Code Hint:</h4>
+    <pre><code>
+using System.Diagnostics;
+
+int pid = 1234; // Replace with actual PID
+var proc = Process.GetProcessById(pid);
+Console.WriteLine($"Name: {proc.ProcessName}, Start Time: {proc.StartTime}");
+    </code></pre>
+
+    <h2>Understanding AppDomains</h2>
+    <p>AppDomains are logical divisions within a process that host .NET Core assemblies. They provide isolation and are cheaper to create than full processes.</p>
+
+    <h3>Key Points:</h3>
+    <ul>
+      <li><strong>Default AppDomain</strong>: The main AppDomain created when the application starts.</li>
+      <li><strong>Assembly Isolation</strong>: AppDomains help isolate assemblies to prevent conflicts.</li>
+    </ul>
+
+    <h2>Understanding Load Contexts</h2>
+    <p>Load contexts manage how assemblies are loaded and isolated within an AppDomain. They help ensure that different versions of assemblies can coexist.</p>
+
+    <h3>Key Points:</h3>
+    <ul>
+      <li><strong>AssemblyLoadContext</strong>: Class used to load assemblies into specific contexts.</li>
+    </ul>
+
+    <h2>Exercises</h2>
+
+    <h3>Exercise 4: Load Assemblies in Different Contexts</h3>
+    <p>Write a program to load the same assembly in different contexts and compare them.</p>
+
+    <h4>Pseudocode:</h4>
+    <pre><code>
+1. Import System.Reflection and System.Runtime.Loader namespaces.
+2. Create two AssemblyLoadContexts.
+3. Load the same assembly in both contexts.
+4. Compare the assemblies.
+    </code></pre>
+
+    <h4>Code Hint:</h4>
+    <pre><code>
+using System.Reflection;
+using System.Runtime.Loader;
+
+var path = "path/to/assembly.dll";
+var context1 = new AssemblyLoadContext("Context1", isCollectible: false);
+var assembly1 = context1.LoadFromAssemblyPath(path);
+
+var context2 = new AssemblyLoadContext("Context2", isCollectible: false);
+var assembly2 = context2.LoadFromAssemblyPath(path);
+
+Console.WriteLine(assembly1 == assembly2); // Should print False
+    </code></pre>
+
+    <footer class="mt-4">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+          <li class="page-item active" aria-current="page"><a class="page-link" href="#">14</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">Next</a></li>
+              </ul>
+          </nav>
+        </footer>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+      </body>

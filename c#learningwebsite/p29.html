@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Chapter 29: WPF Notifications, Validations, Commands, and MVVM</h1>
+
+    <h2>Introduction to MVVM</h2>
+    <p><strong>Model-View-ViewModel (MVVM)</strong> is a design pattern that helps organize code in WPF applications.</p>
+    <ul>
+      <li><strong>Model</strong>: Represents the data.</li>
+      <li><strong>View</strong>: The user interface (UI).</li>
+      <li><strong>ViewModel</strong>: Connects the Model and View, handling the logic.</li>
+    </ul>
+
+    <h2>Observable Models and Collections</h2>
+    <p><strong>Observable Models</strong>: Notify the UI when data changes.</p>
+    <p><strong>Observable Collections</strong>: Notify the UI when items are added or removed.</p>
+
+    <h3>Example:</h3>
+    <ol>
+      <li>Create a class <code>Car</code> with properties like <code>Id</code>, <code>Make</code>, <code>Color</code>, and <code>PetName</code>.</li>
+      <li>Implement <code>INotifyPropertyChanged</code> to notify the UI of changes.</li>
+    </ol>
+    <pre><code class="language-csharp">
+public class Car : INotifyPropertyChanged {
+    private int _id;
+    public int Id {
+        get => _id;
+        set {
+            if (_id != value) {
+                _id = value;
+                OnPropertyChanged();
+            }
+        }
+    }
+    // Similar for other properties
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = "") {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
+    </code></pre>
+
+    <h2>Validations</h2>
+    <p><strong>Validation</strong>: Ensures data entered by the user is correct.</p>
+    <p>Use <code>IDataErrorInfo</code> or <code>INotifyDataErrorInfo</code> for custom validations.</p>
+
+    <h3>Example:</h3>
+    <ol>
+      <li>Implement <code>IDataErrorInfo</code> in the <code>Car</code> class to validate properties.</li>
+    </ol>
+    <pre><code class="language-csharp">
+public partial class Car : IDataErrorInfo {
+    public string this[string columnName] {
+        get {
+            switch (columnName) {
+                case nameof(Make):
+                    if (Make == "ModelT") return "Too Old";
+                    break;
+                // Other validations
+            }
+            return string.Empty;
+        }
+    }
+    public string Error => null;
+}
+    </code></pre>
+
+    <h2>Commands</h2>
+    <p><strong>Commands</strong>: Encapsulate actions like button clicks.</p>
+    <p>Implement <code>ICommand</code> to create custom commands.</p>
+
+    <h3>Example:</h3>
+    <ol>
+      <li>Create a <code>ChangeColorCommand</code> class that changes the color of a car.</li>
+    </ol>
+    <pre><code class="language-csharp">
+public class ChangeColorCommand : ICommand {
+    public bool CanExecute(object parameter) => parameter is Car;
+    public void Execute(object parameter) {
+        ((Car)parameter).Color = "Pink";
+    }
+    public event EventHandler CanExecuteChanged {
+        add => CommandManager.RequerySuggested += value;
+        remove => CommandManager.RequerySuggested -= value;
+    }
+}
+    </code></pre>
+
+    <h2>Exercises</h2>
+
+    <h3>Exercise 1: Create an Observable Model</h3>
+    <ol>
+      <li>Create a new WPF project.</li>
+      <li>Add a <code>Car</code> class with properties <code>Id</code>, <code>Make</code>, <code>Color</code>, and <code>PetName</code>.</li>
+      <li>Implement <code>INotifyPropertyChanged</code> in the <code>Car</code> class.</li>
+    </ol>
+    <pre><code class="language-pseudocode">
+class Car implements INotifyPropertyChanged
+    property Id
+    property Make
+    property Color
+    property PetName
+    method OnPropertyChanged
+        trigger PropertyChanged event
+    </code></pre>
+
+    <h3>Exercise 2: Add Validation to the Model</h3>
+    <ol>
+      <li>Implement <code>IDataErrorInfo</code> in the <code>Car</code> class.</li>
+      <li>Add validation rules for <code>Make</code> and <code>Color</code>.</li>
+    </ol>
+    <pre><code class="language-pseudocode">
+class Car implements IDataErrorInfo
+    method indexer(columnName)
+        if columnName is "Make" and Make is "ModelT"
+            return "Too Old"
+        else if columnName is "Color" and Make is "Chevy" and Color is "Pink"
+            return "Chevy's don't come in Pink"
+        return empty string
+    </code></pre>
+
+    <h3>Exercise 3: Create and Use Commands</h3>
+    <ol>
+      <li>Create a <code>ChangeColorCommand</code> class.</li>
+      <li>Implement <code>ICommand</code> in the class.</li>
+      <li>Bind the command to a button in the UI.</li>
+    </ol>
+    <pre><code class="language-pseudocode">
+class ChangeColorCommand implements ICommand
+    method CanExecute(parameter)
+        return parameter is Car
+    method Execute(parameter)
+        set parameter.Color to "Pink"
+    event CanExecuteChanged
+        add CommandManager.RequerySuggested
+        remove CommandManager.RequerySuggested
+    </code></pre>
+
+    <footer class="mt-4">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+          <li class="page-item active" aria-current="page"><a class="page-link" href="#">29</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">Next</a></li>
+              </ul>
+          </nav>
+        </footer>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+      </body>

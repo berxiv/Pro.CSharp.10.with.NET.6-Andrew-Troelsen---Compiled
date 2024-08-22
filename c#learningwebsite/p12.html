@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Chapter 12: Delegates, Events, and Lambda Expressions</h1>
+
+    <h2>What Are Delegates?</h2>
+    <p><strong>Delegates</strong> are like pointers to methods. They allow methods to be passed as parameters. They are type-safe, meaning they ensure the method signature matches the delegate signature. Delegates can point to multiple methods (multicasting).</p>
+
+    <h3>Example:</h3>
+    <pre><code>public delegate int MathOperation(int x, int y);</code></pre>
+    <p>This delegate can point to any method that takes two integers and returns an integer.</p>
+
+    <h2>Creating and Using Delegates</h2>
+    <ol>
+      <li><strong>Define a Delegate:</strong>
+        <pre><code>public delegate int MathOperation(int x, int y);</code></pre>
+      </li>
+      <li><strong>Create Methods</strong> that match the delegate signature:
+        <pre><code>public static int Add(int x, int y) => x + y;
+public static int Subtract(int x, int y) => x - y;</code></pre>
+      </li>
+      <li><strong>Create Delegate Instances:</strong>
+        <pre><code>MathOperation add = new MathOperation(Add);
+MathOperation subtract = new MathOperation(Subtract);</code></pre>
+      </li>
+      <li><strong>Invoke the Delegate:</strong>
+        <pre><code>int result = add(10, 20); // Calls Add method</code></pre>
+      </li>
+    </ol>
+
+    <h2>Multicasting with Delegates</h2>
+    <p>You can add multiple methods to a delegate using <code>+=</code> and remove them using <code>-=</code>. When invoked, all methods in the delegate's list are called.</p>
+
+    <h2>Events</h2>
+    <p><strong>Events</strong> are a way for a class to notify other classes when something happens. They are based on delegates but provide more control and safety. Use the <code>event</code> keyword to declare an event.</p>
+
+    <h3>Example:</h3>
+    <pre><code>public delegate void Notify();  // Delegate
+public event Notify OnProcessCompleted; // Event</code></pre>
+
+    <h2>Using Events</h2>
+    <ol>
+      <li><strong>Define a Delegate and Event:</strong>
+        <pre><code>public delegate void Notify();
+public event Notify OnProcessCompleted;</code></pre>
+      </li>
+      <li><strong>Raise the Event:</strong>
+        <pre><code>if (OnProcessCompleted != null)
+    OnProcessCompleted();</code></pre>
+      </li>
+      <li><strong>Subscribe to the Event:</strong>
+        <pre><code>obj.OnProcessCompleted += EventHandlerMethod;</code></pre>
+      </li>
+      <li><strong>Event Handler Method:</strong>
+        <pre><code>void EventHandlerMethod()
+{
+    Console.WriteLine("Process Completed!");
+}</code></pre>
+      </li>
+    </ol>
+
+    <h2>Lambda Expressions</h2>
+    <p><strong>Lambda Expressions</strong> are a concise way to write anonymous methods. They use the <code>=></code> syntax.</p>
+
+    <h3>Example:</h3>
+    <pre><code>Func<int, int, int> add = (x, y) => x + y;
+int result = add(10, 20); // result is 30</code></pre>
+
+    <h2>Exercises</h2>
+
+    <h3>Exercise 1: Create and Use a Delegate</h3>
+    <p><strong>Task:</strong> Create a delegate that points to a method which multiplies two numbers.</p>
+    <p><strong>Pseudocode:</strong></p>
+    <pre><code>Define delegate MultiplyDelegate
+Create method Multiply that takes two integers and returns their product
+Create an instance of MultiplyDelegate pointing to Multiply
+Call the delegate with two numbers and print the result</code></pre>
+
+    <h3>Exercise 2: Implement an Event</h3>
+    <p><strong>Task:</strong> Create a class with an event that triggers when a value exceeds a limit.</p>
+    <p><strong>Pseudocode:</strong></p>
+    <pre><code>Define delegate LimitExceededHandler
+Define event LimitExceeded
+Create method CheckValue that checks if a value exceeds a limit
+If value exceeds limit, raise LimitExceeded event
+Create a method to handle the event and print a message
+Subscribe to the event and test with different values</code></pre>
+
+    <h3>Exercise 3: Use Lambda Expressions</h3>
+    <p><strong>Task:</strong> Use a lambda expression to filter even numbers from a list.</p>
+    <p><strong>Pseudocode:</strong></p>
+    <pre><code>Create a list of integers
+Use a lambda expression with List.FindAll to find even numbers
+Print the even numbers</code></pre>
+
+<footer class="mt-4">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+      <li class="page-item active" aria-current="page"><a class="page-link" href="#">12</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+      <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">Next</a></li>
+          </ul>
+      </nav>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+  </body>

@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Welcome to Learning C# Programming</h1>
+    <p>This is a simple webpage to help you learn C# programming.</p>
+
+    <h2>Introduction to MVC</h2>
+    <p>MVC stands for Model-View-Controller. It's a way to build web applications by separating the data (Model), the user interface (View), and the control logic (Controller).</p>
+
+    <h2>Views in ASP.NET Core</h2>
+    <p>Views are the part of MVC that handles the user interface. They use HTML, JavaScript, CSS, and Razor code. Razor is a special syntax for embedding server-side code into web pages.</p>
+
+    <h2>Action Methods and ViewResults</h2>
+    <p>Action methods in controllers return ViewResults to render views. A <code>ViewResult</code> uses a layout view, while a <code>PartialViewResult</code> does not.</p>
+
+    <h2>Example Code</h2>
+    <pre><code>
+public class SampleController : Controller
+{
+    public ActionResult SampleAction()
+    {
+        return View();
+    }
+}
+    </code></pre>
+
+    <h2>Razor Syntax</h2>
+    <p>Razor syntax allows you to mix HTML with C# code. Here are some basic examples:</p>
+    <ul>
+      <li><strong>Variables</strong>: <code>@foo</code></li>
+      <li><strong>Loops</strong>: <code>@for (int i = 0; i < 10; i++) { <p>@i</p> }</code></li>
+      <li><strong>Code Blocks</strong>: <code>@{ var foo = "bar"; }</code></li>
+    </ul>
+
+    <h2>Example Code</h2>
+    <pre><code>
+@model MyModel
+<h1>@Model.Title</h1>
+@for (int i = 0; i < 10; i++)
+{
+    <p>@i</p>
+}
+    </code></pre>
+
+    <h2>Layouts</h2>
+    <p>Layouts are like templates for your views. They contain common HTML that you want to share across multiple views.</p>
+
+    <h2>Example Layout</h2>
+    <pre><code>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>
+    </code></pre>
+
+    <h2>Partial Views</h2>
+    <p>Partial views are reusable pieces of UI. They help keep your code DRY (Don't Repeat Yourself).</p>
+
+    <h2>Example Partial View</h2>
+    <pre><code>
+<div>
+    <h2>@Model.Title</h2>
+    <p>@Model.Description</p>
+</div>
+    </code></pre>
+
+    <h2>Tag Helpers</h2>
+    <p>Tag helpers are a way to add server-side code to your HTML tags. They make your HTML more readable and maintainable.</p>
+
+    <h2>Example Tag Helper</h2>
+    <pre><code>
+<form asp-controller="Home" asp-action="Index">
+    <input type="submit" value="Submit" />
+</form>
+    </code></pre>
+
+    <h2>Exercises</h2>
+    <h3>Exercise 1: Create a Simple View</h3>
+    <p><strong>Task</strong>: Create a view that displays a list of items.</p>
+    <pre><code>
+// Controller
+public ActionResult ListItems()
+{
+    var items = GetItems();
+    return View(items);
+}
+
+// View (ListItems.cshtml)
+@model List<string>
+<ul>
+@foreach (var item in Model)
+{
+    <li>@item</li>
+}
+</ul>
+    </code></pre>
+
+    <h3>Exercise 2: Use Razor Syntax</h3>
+    <p><strong>Task</strong>: Create a view that uses Razor syntax to display numbers from 1 to 10.</p>
+    <pre><code>
+// Controller
+public ActionResult ShowNumbers()
+{
+    return View();
+}
+
+// View (ShowNumbers.cshtml)
+@for (int i = 1; i <= 10; i++)
+{
+    <p>@i</p>
+}
+    </code></pre>
+
+    <h3>Exercise 3: Create a Layout</h3>
+    <p><strong>Task</strong>: Create a layout that includes a header and a footer.</p>
+    <pre><code>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewData["Title"]</title>
+</head>
+<body>
+    <header>
+        <h1>My Website</h1>
+    </header>
+    @RenderBody()
+    <footer>
+        <p>© 2024 My Website</p>
+    </footer>
+</body>
+</html>
+    </code></pre>
+
+    <h3>Exercise 4: Create a Partial View</h3>
+    <p><strong>Task</strong>: Create a partial view for displaying a product.</p>
+    <pre><code>
+// Partial View (_Product.cshtml)
+@model Product
+<div>
+    <h2>@Model.Name</h2>
+    <p>@Model.Price</p>
+</div>
+
+// Main View
+@model List<Product>
+@foreach (var product in Model)
+{
+    @Html.Partial("_Product", product)
+}
+    </code></pre>
+
+    <h3>Exercise 5: Use Tag Helpers</h3>
+    <p><strong>Task</strong>: Create a form using tag helpers.</p>
+    <pre><code>
+<form asp-controller="Home" asp-action="SubmitForm">
+    <input type="text" name="Name" />
+    <input type="submit" value="Submit" />
+</form>
+    </code></pre>
+
+    <footer class="mt-4">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p30.html">30</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+          <li class="page-item active" aria-current="page"><a class="page-link" href="#">33</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">Next</a></li>
+              </ul>
+          </nav>
+        </footer>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+      </body>

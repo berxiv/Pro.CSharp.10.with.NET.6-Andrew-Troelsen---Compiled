@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Learning C# Programming</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body class="container mt-4">
+    <h1>Chapter 30: Introducing ASP.NET Core</h1>
+    <p>ASP.NET Core is a framework for building web applications using C# and .NET. It helps you create websites and services that can run on different operating systems like Windows, Linux, and macOS.</p>
+
+    <h2>Key Concepts</h2>
+    <ul>
+      <li><strong>MVC Pattern</strong>: Stands for Model-View-Controller. It's a way to organize your code:
+        <ul>
+          <li><strong>Model</strong>: Represents the data.</li>
+          <li><strong>View</strong>: Displays the data to the user.</li>
+          <li><strong>Controller</strong>: Handles user input and updates the model and view.</li>
+        </ul>
+      </li>
+      <li><strong>RESTful Services</strong>: These are web services that follow certain rules to make them easy to use and understand.</li>
+      <li><strong>Razor Pages</strong>: A simpler way to build web pages in ASP.NET Core.</li>
+    </ul>
+
+    <h2>Setting Up Your Project</h2>
+    <ol>
+      <li><strong>Create a Solution</strong>: A solution is like a container for your projects.</li>
+      <li><strong>Create Projects</strong>: You will create three projects:
+        <ul>
+          <li><strong>AutoLot.Api</strong>: A RESTful service.</li>
+          <li><strong>AutoLot.Mvc</strong>: A web application using MVC.</li>
+          <li><strong>AutoLot.Web</strong>: A web application using Razor Pages.</li>
+        </ul>
+      </li>
+    </ol>
+
+    <h2>Running and Debugging</h2>
+    <p>You can run and debug your projects using Visual Studio or Visual Studio Code. This helps you find and fix errors in your code.</p>
+
+    <h2>Features of ASP.NET Core</h2>
+    <ul>
+      <li><strong>Controllers and Actions</strong>: Controllers handle user requests, and actions are methods in controllers that respond to those requests.</li>
+      <li><strong>Routing</strong>: Determines how URLs map to controllers and actions.</li>
+      <li><strong>Model Binding and Validation</strong>: Automatically converts user input into model objects and checks if the input is valid.</li>
+      <li><strong>Filters</strong>: Run code before or after certain stages of request processing.</li>
+    </ul>
+
+    <h2>Exercises</h2>
+
+    <h3>Exercise 1: Create a Simple ASP.NET Core Project</h3>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Open Visual Studio.</li>
+      <li>Create a new project using the "ASP.NET Core Web App" template.</li>
+      <li>Name your project "MyFirstApp".</li>
+    </ol>
+    <p><strong>Pseudocode Hint</strong>:</p>
+    <pre><code>
+1. Open Visual Studio.
+2. Select "Create a new project".
+3. Choose "ASP.NET Core Web App".
+4. Name the project "MyFirstApp".
+5. Click "Create".
+    </code></pre>
+
+    <h3>Exercise 2: Add a Controller</h3>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Right-click on the "Controllers" folder.</li>
+      <li>Select "Add" > "Controller".</li>
+      <li>Choose "MVC Controller - Empty".</li>
+      <li>Name it "HomeController".</li>
+    </ol>
+    <p><strong>Pseudocode Hint</strong>:</p>
+    <pre><code>
+1. Right-click "Controllers" folder.
+2. Select "Add" > "Controller".
+3. Choose "MVC Controller - Empty".
+4. Name it "HomeController".
+    </code></pre>
+
+    <h3>Exercise 3: Create a View</h3>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Right-click on the "Views" folder.</li>
+      <li>Select "Add" > "New Folder" and name it "Home".</li>
+      <li>Right-click on the "Home" folder and select "Add" > "Razor Page".</li>
+      <li>Name it "Index".</li>
+    </ol>
+    <p><strong>Pseudocode Hint</strong>:</p>
+    <pre><code>
+1. Right-click "Views" folder.
+2. Select "Add" > "New Folder" and name it "Home".
+3. Right-click "Home" folder.
+4. Select "Add" > "Razor Page".
+5. Name it "Index".
+    </code></pre>
+
+    <h3>Exercise 4: Add Routing</h3>
+    <p><strong>Steps</strong>:</p>
+    <ol>
+      <li>Open <code>Startup.cs</code>.</li>
+      <li>In the <code>Configure</code> method, add a route for your controller.</li>
+    </ol>
+    <p><strong>Pseudocode Hint</strong>:</p>
+    <pre><code>
+1. Open <code>Startup.cs</code>.
+2. In <code>Configure</code> method, add:
+   app.UseEndpoints(endpoints =>
+   {
+       endpoints.MapControllerRoute(
+           name: "default",
+           pattern: "{controller=Home}/{action=Index}/{id?}");
+   });
+    </code></pre>
+
+    <footer class="mt-4">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item">
+            <a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">Previous</a>
+          </li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/index.html">1</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p2.html">2</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p3.html">3</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p4.html">4</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p5.html">5</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p6.html">6</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p7.html">7</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p8.html">8</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p9.html">9</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p10.html">10</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p11.html">11</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p12.html">12</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p13.html">13</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p14.html">14</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p15.html">15</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p16.html">16</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p17.html">17</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p18.html">18</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p19.html">19</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p20.html">20</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p21.html">21</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p22.html">22</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p23.html">23</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p24.html">24</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p25.html">25</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p26.html">26</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p27.html">27</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p28.html">28</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p29.html">29</a></li>
+          <li class="page-item active" aria-current="page"><a class="page-link" href="#">30</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">31</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p32.html">32</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p33.html">33</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p34.html">34</a></li>
+          <li class="page-item"><a class="page-link" href="file:///C:/Users/allan/Desktop/c%23learningwebsite/p31.html">Next</a></li>
+              </ul>
+          </nav>
+        </footer>
+    
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+o2e40pHs2b8pfp1HgpKFO4ZzR0J" crossorigin="anonymous"></script>
+      </body>
